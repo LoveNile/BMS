@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.BookStockMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.BookStock" >
+    <id column="BookId" property="bookid" jdbcType="INTEGER" />
+    <result column="BookNumber" property="booknumber" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BookId, BookNumber, UpdateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.BookStockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from book_stock
+    where BookId = #{bookid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book_stock
+    where BookId = #{bookid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.BookStockExample" >
+    delete from book_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.BookStock" >
+    insert into book_stock (BookId, BookNumber, UpdateTime
+      )
+    values (#{bookid,jdbcType=INTEGER}, #{booknumber,jdbcType=INTEGER}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.BookStock" >
+    insert into book_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        BookId,
+      </if>
+      <if test="booknumber != null" >
+        BookNumber,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="booknumber != null" >
+        #{booknumber,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.BookStockExample" resultType="java.lang.Integer" >
+    select count(*) from book_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book_stock
+    <set >
+      <if test="record.bookid != null" >
+        BookId = #{record.bookid,jdbcType=INTEGER},
+      </if>
+      <if test="record.booknumber != null" >
+        BookNumber = #{record.booknumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatetime != null" >
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book_stock
+    set BookId = #{record.bookid,jdbcType=INTEGER},
+      BookNumber = #{record.booknumber,jdbcType=INTEGER},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.BookStock" >
+    update book_stock
+    <set >
+      <if test="booknumber != null" >
+        BookNumber = #{booknumber,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BookId = #{bookid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.BookStock" >
+    update book_stock
+    set BookNumber = #{booknumber,jdbcType=INTEGER},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where BookId = #{bookid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.BookRenewMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.BookRenew" >
+    <id column="BookRenewId" property="bookrenewid" jdbcType="INTEGER" />
+    <result column="BorrowId" property="borrowid" jdbcType="INTEGER" />
+    <result column="RenewDay" property="renewday" jdbcType="INTEGER" />
+    <result column="RenewDate" property="renewdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BookRenewId, BorrowId, RenewDay, RenewDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.BookRenewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book_renew
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from book_renew
+    where BookRenewId = #{bookrenewid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book_renew
+    where BookRenewId = #{bookrenewid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.BookRenewExample" >
+    delete from book_renew
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.BookRenew" >
+    insert into book_renew (BookRenewId, BorrowId, RenewDay, 
+      RenewDate)
+    values (#{bookrenewid,jdbcType=INTEGER}, #{borrowid,jdbcType=INTEGER}, #{renewday,jdbcType=INTEGER}, 
+      #{renewdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.BookRenew" >
+    insert into book_renew
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookrenewid != null" >
+        BookRenewId,
+      </if>
+      <if test="borrowid != null" >
+        BorrowId,
+      </if>
+      <if test="renewday != null" >
+        RenewDay,
+      </if>
+      <if test="renewdate != null" >
+        RenewDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookrenewid != null" >
+        #{bookrenewid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowid != null" >
+        #{borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="renewday != null" >
+        #{renewday,jdbcType=INTEGER},
+      </if>
+      <if test="renewdate != null" >
+        #{renewdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.BookRenewExample" resultType="java.lang.Integer" >
+    select count(*) from book_renew
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book_renew
+    <set >
+      <if test="record.bookrenewid != null" >
+        BookRenewId = #{record.bookrenewid,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowid != null" >
+        BorrowId = #{record.borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.renewday != null" >
+        RenewDay = #{record.renewday,jdbcType=INTEGER},
+      </if>
+      <if test="record.renewdate != null" >
+        RenewDate = #{record.renewdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book_renew
+    set BookRenewId = #{record.bookrenewid,jdbcType=INTEGER},
+      BorrowId = #{record.borrowid,jdbcType=INTEGER},
+      RenewDay = #{record.renewday,jdbcType=INTEGER},
+      RenewDate = #{record.renewdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.BookRenew" >
+    update book_renew
+    <set >
+      <if test="borrowid != null" >
+        BorrowId = #{borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="renewday != null" >
+        RenewDay = #{renewday,jdbcType=INTEGER},
+      </if>
+      <if test="renewdate != null" >
+        RenewDate = #{renewdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BookRenewId = #{bookrenewid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.BookRenew" >
+    update book_renew
+    set BorrowId = #{borrowid,jdbcType=INTEGER},
+      RenewDay = #{renewday,jdbcType=INTEGER},
+      RenewDate = #{renewdate,jdbcType=TIMESTAMP}
+    where BookRenewId = #{bookrenewid,jdbcType=INTEGER}
+  </update>
+</mapper>

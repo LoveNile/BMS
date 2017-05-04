@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 100%;
+    height: 100%;
+}
+.main{
+    font-size: 0;
+    width: 500px;
+    margin-left: 410px;
+    margin-top: 100px;
+}
+.success-status{
+    display: inline-block;
+    font-size: 30px;
+    background-color: #d9534f;
+    color: #fff;
+    border-radius:3px;
+}
+a{
+    background-color: #449d44;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 15px;
+    margin-left: 40px;
+    width: 100px;
+    text-align: center;
+}
+img{
+    height: 100px;
+    width: 100px;
+}
+.status-img{
+    width: 500px;
+    height: 280px;
+    background-color: red;
+    margin-left: 400px;
+    background-image: url(../gif/2.gif);
+    border-radius: 12px;
+}

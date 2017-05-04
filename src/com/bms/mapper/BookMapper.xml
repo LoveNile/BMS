@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.Book" >
+    <id column="BookId" property="bookid" jdbcType="BIGINT" />
+    <result column="BookName" property="bookname" jdbcType="VARCHAR" />
+    <result column="BookAuthor" property="bookauthor" jdbcType="VARCHAR" />
+    <result column="CategoryId" property="categoryid" jdbcType="INTEGER" />
+    <result column="BookPress" property="bookpress" jdbcType="VARCHAR" />
+    <result column="PublishedDate" property="publisheddate" jdbcType="DATE" />
+    <result column="BookEnterTime" property="bookentertime" jdbcType="DATE" />
+    <result column="BookIntroduction" property="bookintroduction" jdbcType="VARCHAR" />
+    <result column="BookAddress" property="bookaddress" jdbcType="VARCHAR" />
+    <result column="BookPicPath" property="bookpicpath" jdbcType="VARCHAR" />
+    <result column="DelMaker" property="delmaker" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BookId, BookName, BookAuthor, CategoryId, BookPress, PublishedDate, BookEnterTime, 
+    BookIntroduction, BookAddress, BookPicPath, DelMaker
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.BookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where BookId = #{bookid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from book
+    where BookId = #{bookid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.BookExample" >
+    delete from book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.Book" >
+    insert into book (BookId, BookName, BookAuthor, 
+      CategoryId, BookPress, PublishedDate, 
+      BookEnterTime, BookIntroduction, BookAddress, 
+      BookPicPath, DelMaker)
+    values (#{bookid,jdbcType=BIGINT}, #{bookname,jdbcType=VARCHAR}, #{bookauthor,jdbcType=VARCHAR}, 
+      #{categoryid,jdbcType=INTEGER}, #{bookpress,jdbcType=VARCHAR}, #{publisheddate,jdbcType=DATE}, 
+      #{bookentertime,jdbcType=DATE}, #{bookintroduction,jdbcType=VARCHAR}, #{bookaddress,jdbcType=VARCHAR}, 
+      #{bookpicpath,jdbcType=VARCHAR}, #{delmaker,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.Book" >
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        BookId,
+      </if>
+      <if test="bookname != null" >
+        BookName,
+      </if>
+      <if test="bookauthor != null" >
+        BookAuthor,
+      </if>
+      <if test="categoryid != null" >
+        CategoryId,
+      </if>
+      <if test="bookpress != null" >
+        BookPress,
+      </if>
+      <if test="publisheddate != null" >
+        PublishedDate,
+      </if>
+      <if test="bookentertime != null" >
+        BookEnterTime,
+      </if>
+      <if test="bookintroduction != null" >
+        BookIntroduction,
+      </if>
+      <if test="bookaddress != null" >
+        BookAddress,
+      </if>
+      <if test="bookpicpath != null" >
+        BookPicPath,
+      </if>
+      <if test="delmaker != null" >
+        DelMaker,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="bookname != null" >
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="bookauthor != null" >
+        #{bookauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="bookpress != null" >
+        #{bookpress,jdbcType=VARCHAR},
+      </if>
+      <if test="publisheddate != null" >
+        #{publisheddate,jdbcType=DATE},
+      </if>
+      <if test="bookentertime != null" >
+        #{bookentertime,jdbcType=DATE},
+      </if>
+      <if test="bookintroduction != null" >
+        #{bookintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="bookaddress != null" >
+        #{bookaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bookpicpath != null" >
+        #{bookpicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="delmaker != null" >
+        #{delmaker,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.BookExample" resultType="java.lang.Integer" >
+    select count(*) from book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book
+    <set >
+      <if test="record.bookid != null" >
+        BookId = #{record.bookid,jdbcType=BIGINT},
+      </if>
+      <if test="record.bookname != null" >
+        BookName = #{record.bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookauthor != null" >
+        BookAuthor = #{record.bookauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryid != null" >
+        CategoryId = #{record.categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookpress != null" >
+        BookPress = #{record.bookpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publisheddate != null" >
+        PublishedDate = #{record.publisheddate,jdbcType=DATE},
+      </if>
+      <if test="record.bookentertime != null" >
+        BookEnterTime = #{record.bookentertime,jdbcType=DATE},
+      </if>
+      <if test="record.bookintroduction != null" >
+        BookIntroduction = #{record.bookintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookaddress != null" >
+        BookAddress = #{record.bookaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookpicpath != null" >
+        BookPicPath = #{record.bookpicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delmaker != null" >
+        DelMaker = #{record.delmaker,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book
+    set BookId = #{record.bookid,jdbcType=BIGINT},
+      BookName = #{record.bookname,jdbcType=VARCHAR},
+      BookAuthor = #{record.bookauthor,jdbcType=VARCHAR},
+      CategoryId = #{record.categoryid,jdbcType=INTEGER},
+      BookPress = #{record.bookpress,jdbcType=VARCHAR},
+      PublishedDate = #{record.publisheddate,jdbcType=DATE},
+      BookEnterTime = #{record.bookentertime,jdbcType=DATE},
+      BookIntroduction = #{record.bookintroduction,jdbcType=VARCHAR},
+      BookAddress = #{record.bookaddress,jdbcType=VARCHAR},
+      BookPicPath = #{record.bookpicpath,jdbcType=VARCHAR},
+      DelMaker = #{record.delmaker,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.Book" >
+    update book
+    <set >
+      <if test="bookname != null" >
+        BookName = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="bookauthor != null" >
+        BookAuthor = #{bookauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        CategoryId = #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="bookpress != null" >
+        BookPress = #{bookpress,jdbcType=VARCHAR},
+      </if>
+      <if test="publisheddate != null" >
+        PublishedDate = #{publisheddate,jdbcType=DATE},
+      </if>
+      <if test="bookentertime != null" >
+        BookEnterTime = #{bookentertime,jdbcType=DATE},
+      </if>
+      <if test="bookintroduction != null" >
+        BookIntroduction = #{bookintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="bookaddress != null" >
+        BookAddress = #{bookaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bookpicpath != null" >
+        BookPicPath = #{bookpicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="delmaker != null" >
+        DelMaker = #{delmaker,jdbcType=BIT},
+      </if>
+    </set>
+    where BookId = #{bookid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.Book" >
+    update book
+    set BookName = #{bookname,jdbcType=VARCHAR},
+      BookAuthor = #{bookauthor,jdbcType=VARCHAR},
+      CategoryId = #{categoryid,jdbcType=INTEGER},
+      BookPress = #{bookpress,jdbcType=VARCHAR},
+      PublishedDate = #{publisheddate,jdbcType=DATE},
+      BookEnterTime = #{bookentertime,jdbcType=DATE},
+      BookIntroduction = #{bookintroduction,jdbcType=VARCHAR},
+      BookAddress = #{bookaddress,jdbcType=VARCHAR},
+      BookPicPath = #{bookpicpath,jdbcType=VARCHAR},
+      DelMaker = #{delmaker,jdbcType=BIT}
+    where BookId = #{bookid,jdbcType=BIGINT}
+  </update>
+</mapper>

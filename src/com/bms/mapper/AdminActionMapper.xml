@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.AdminActionMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.AdminAction" >
+    <id column="AdminActionId" property="adminactionid" jdbcType="INTEGER" />
+    <result column="AdminId" property="adminid" jdbcType="INTEGER" />
+    <result column="AdminActionType" property="adminactiontype" jdbcType="VARCHAR" />
+    <result column="AdminActionTime" property="adminactiontime" jdbcType="TIMESTAMP" />
+    <result column="AdminActionTo" property="adminactionto" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AdminActionId, AdminId, AdminActionType, AdminActionTime, AdminActionTo
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.AdminActionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin_action
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_action
+    where AdminActionId = #{adminactionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin_action
+    where AdminActionId = #{adminactionid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.AdminActionExample" >
+    delete from admin_action
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.AdminAction" >
+    insert into admin_action (AdminActionId, AdminId, AdminActionType, 
+      AdminActionTime, AdminActionTo)
+    values (#{adminactionid,jdbcType=INTEGER}, #{adminid,jdbcType=INTEGER}, #{adminactiontype,jdbcType=VARCHAR}, 
+      #{adminactiontime,jdbcType=TIMESTAMP}, #{adminactionto,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.AdminAction" >
+    insert into admin_action
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminactionid != null" >
+        AdminActionId,
+      </if>
+      <if test="adminid != null" >
+        AdminId,
+      </if>
+      <if test="adminactiontype != null" >
+        AdminActionType,
+      </if>
+      <if test="adminactiontime != null" >
+        AdminActionTime,
+      </if>
+      <if test="adminactionto != null" >
+        AdminActionTo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminactionid != null" >
+        #{adminactionid,jdbcType=INTEGER},
+      </if>
+      <if test="adminid != null" >
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="adminactiontype != null" >
+        #{adminactiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="adminactiontime != null" >
+        #{adminactiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminactionto != null" >
+        #{adminactionto,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.AdminActionExample" resultType="java.lang.Integer" >
+    select count(*) from admin_action
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin_action
+    <set >
+      <if test="record.adminactionid != null" >
+        AdminActionId = #{record.adminactionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminid != null" >
+        AdminId = #{record.adminid,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminactiontype != null" >
+        AdminActionType = #{record.adminactiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminactiontime != null" >
+        AdminActionTime = #{record.adminactiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.adminactionto != null" >
+        AdminActionTo = #{record.adminactionto,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin_action
+    set AdminActionId = #{record.adminactionid,jdbcType=INTEGER},
+      AdminId = #{record.adminid,jdbcType=INTEGER},
+      AdminActionType = #{record.adminactiontype,jdbcType=VARCHAR},
+      AdminActionTime = #{record.adminactiontime,jdbcType=TIMESTAMP},
+      AdminActionTo = #{record.adminactionto,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.AdminAction" >
+    update admin_action
+    <set >
+      <if test="adminid != null" >
+        AdminId = #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="adminactiontype != null" >
+        AdminActionType = #{adminactiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="adminactiontime != null" >
+        AdminActionTime = #{adminactiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminactionto != null" >
+        AdminActionTo = #{adminactionto,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AdminActionId = #{adminactionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.AdminAction" >
+    update admin_action
+    set AdminId = #{adminid,jdbcType=INTEGER},
+      AdminActionType = #{adminactiontype,jdbcType=VARCHAR},
+      AdminActionTime = #{adminactiontime,jdbcType=TIMESTAMP},
+      AdminActionTo = #{adminactionto,jdbcType=VARCHAR}
+    where AdminActionId = #{adminactionid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.Admin" >
+    <id column="AdminId" property="adminid" jdbcType="INTEGER" />
+    <result column="AdminName" property="adminname" jdbcType="VARCHAR" />
+    <result column="AdminPassword" property="adminpassword" jdbcType="VARCHAR" />
+    <result column="AdminGender" property="admingender" jdbcType="BIT" />
+    <result column="AdminEmail" property="adminemail" jdbcType="VARCHAR" />
+    <result column="AdminPhone" property="adminphone" jdbcType="VARCHAR" />
+    <result column="AdminCard" property="admincard" jdbcType="VARCHAR" />
+    <result column="AdminAddress" property="adminaddress" jdbcType="VARCHAR" />
+    <result column="AdminRemarks" property="adminremarks" jdbcType="VARCHAR" />
+    <result column="AdminRegisterTime" property="adminregistertime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AdminId, AdminName, AdminPassword, AdminGender, AdminEmail, AdminPhone, AdminCard, 
+    AdminAddress, AdminRemarks, AdminRegisterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.AdminExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where AdminId = #{adminid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin
+    where AdminId = #{adminid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.AdminExample" >
+    delete from admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.Admin" >
+    insert into admin (AdminId, AdminName, AdminPassword, 
+      AdminGender, AdminEmail, AdminPhone, 
+      AdminCard, AdminAddress, AdminRemarks, 
+      AdminRegisterTime)
+    values (#{adminid,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{adminpassword,jdbcType=VARCHAR}, 
+      #{admingender,jdbcType=BIT}, #{adminemail,jdbcType=VARCHAR}, #{adminphone,jdbcType=VARCHAR}, 
+      #{admincard,jdbcType=VARCHAR}, #{adminaddress,jdbcType=VARCHAR}, #{adminremarks,jdbcType=VARCHAR}, 
+      #{adminregistertime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminid != null" >
+        AdminId,
+      </if>
+      <if test="adminname != null" >
+        AdminName,
+      </if>
+      <if test="adminpassword != null" >
+        AdminPassword,
+      </if>
+      <if test="admingender != null" >
+        AdminGender,
+      </if>
+      <if test="adminemail != null" >
+        AdminEmail,
+      </if>
+      <if test="adminphone != null" >
+        AdminPhone,
+      </if>
+      <if test="admincard != null" >
+        AdminCard,
+      </if>
+      <if test="adminaddress != null" >
+        AdminAddress,
+      </if>
+      <if test="adminremarks != null" >
+        AdminRemarks,
+      </if>
+      <if test="adminregistertime != null" >
+        AdminRegisterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminid != null" >
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="adminname != null" >
+        #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null" >
+        #{adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="admingender != null" >
+        #{admingender,jdbcType=BIT},
+      </if>
+      <if test="adminemail != null" >
+        #{adminemail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminphone != null" >
+        #{adminphone,jdbcType=VARCHAR},
+      </if>
+      <if test="admincard != null" >
+        #{admincard,jdbcType=VARCHAR},
+      </if>
+      <if test="adminaddress != null" >
+        #{adminaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminremarks != null" >
+        #{adminremarks,jdbcType=VARCHAR},
+      </if>
+      <if test="adminregistertime != null" >
+        #{adminregistertime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.AdminExample" resultType="java.lang.Integer" >
+    select count(*) from admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin
+    <set >
+      <if test="record.adminid != null" >
+        AdminId = #{record.adminid,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminname != null" >
+        AdminName = #{record.adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminpassword != null" >
+        AdminPassword = #{record.adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admingender != null" >
+        AdminGender = #{record.admingender,jdbcType=BIT},
+      </if>
+      <if test="record.adminemail != null" >
+        AdminEmail = #{record.adminemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminphone != null" >
+        AdminPhone = #{record.adminphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admincard != null" >
+        AdminCard = #{record.admincard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminaddress != null" >
+        AdminAddress = #{record.adminaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminremarks != null" >
+        AdminRemarks = #{record.adminremarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminregistertime != null" >
+        AdminRegisterTime = #{record.adminregistertime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin
+    set AdminId = #{record.adminid,jdbcType=INTEGER},
+      AdminName = #{record.adminname,jdbcType=VARCHAR},
+      AdminPassword = #{record.adminpassword,jdbcType=VARCHAR},
+      AdminGender = #{record.admingender,jdbcType=BIT},
+      AdminEmail = #{record.adminemail,jdbcType=VARCHAR},
+      AdminPhone = #{record.adminphone,jdbcType=VARCHAR},
+      AdminCard = #{record.admincard,jdbcType=VARCHAR},
+      AdminAddress = #{record.adminaddress,jdbcType=VARCHAR},
+      AdminRemarks = #{record.adminremarks,jdbcType=VARCHAR},
+      AdminRegisterTime = #{record.adminregistertime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.Admin" >
+    update admin
+    <set >
+      <if test="adminname != null" >
+        AdminName = #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null" >
+        AdminPassword = #{adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="admingender != null" >
+        AdminGender = #{admingender,jdbcType=BIT},
+      </if>
+      <if test="adminemail != null" >
+        AdminEmail = #{adminemail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminphone != null" >
+        AdminPhone = #{adminphone,jdbcType=VARCHAR},
+      </if>
+      <if test="admincard != null" >
+        AdminCard = #{admincard,jdbcType=VARCHAR},
+      </if>
+      <if test="adminaddress != null" >
+        AdminAddress = #{adminaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminremarks != null" >
+        AdminRemarks = #{adminremarks,jdbcType=VARCHAR},
+      </if>
+      <if test="adminregistertime != null" >
+        AdminRegisterTime = #{adminregistertime,jdbcType=DATE},
+      </if>
+    </set>
+    where AdminId = #{adminid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.Admin" >
+    update admin
+    set AdminName = #{adminname,jdbcType=VARCHAR},
+      AdminPassword = #{adminpassword,jdbcType=VARCHAR},
+      AdminGender = #{admingender,jdbcType=BIT},
+      AdminEmail = #{adminemail,jdbcType=VARCHAR},
+      AdminPhone = #{adminphone,jdbcType=VARCHAR},
+      AdminCard = #{admincard,jdbcType=VARCHAR},
+      AdminAddress = #{adminaddress,jdbcType=VARCHAR},
+      AdminRemarks = #{adminremarks,jdbcType=VARCHAR},
+      AdminRegisterTime = #{adminregistertime,jdbcType=DATE}
+    where AdminId = #{adminid,jdbcType=INTEGER}
+  </update>
+</mapper>

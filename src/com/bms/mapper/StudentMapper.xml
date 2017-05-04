@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.Student" >
+    <id column="StudentNumber" property="studentnumber" jdbcType="BIGINT" />
+    <result column="StudentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="StudetPassword" property="studetpassword" jdbcType="VARCHAR" />
+    <result column="Gender" property="gender" jdbcType="BIT" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="College" property="college" jdbcType="VARCHAR" />
+    <result column="Speciality" property="speciality" jdbcType="VARCHAR" />
+    <result column="StudentClass" property="studentclass" jdbcType="VARCHAR" />
+    <result column="StudentEnterYear" property="studententeryear" jdbcType="DATE" />
+    <result column="StudentAdddress" property="studentadddress" jdbcType="VARCHAR" />
+    <result column="StudentStatus" property="studentstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    StudentNumber, StudentName, StudetPassword, Gender, Phone, Email, College, Speciality, 
+    StudentClass, StudentEnterYear, StudentAdddress, StudentStatus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where StudentNumber = #{studentnumber,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from student
+    where StudentNumber = #{studentnumber,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.StudentExample" >
+    delete from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.Student" >
+    insert into student (StudentNumber, StudentName, StudetPassword, 
+      Gender, Phone, Email, College, 
+      Speciality, StudentClass, StudentEnterYear, 
+      StudentAdddress, StudentStatus)
+    values (#{studentnumber,jdbcType=BIGINT}, #{studentname,jdbcType=VARCHAR}, #{studetpassword,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=BIT}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, 
+      #{speciality,jdbcType=VARCHAR}, #{studentclass,jdbcType=VARCHAR}, #{studententeryear,jdbcType=DATE}, 
+      #{studentadddress,jdbcType=VARCHAR}, #{studentstatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentnumber != null" >
+        StudentNumber,
+      </if>
+      <if test="studentname != null" >
+        StudentName,
+      </if>
+      <if test="studetpassword != null" >
+        StudetPassword,
+      </if>
+      <if test="gender != null" >
+        Gender,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="college != null" >
+        College,
+      </if>
+      <if test="speciality != null" >
+        Speciality,
+      </if>
+      <if test="studentclass != null" >
+        StudentClass,
+      </if>
+      <if test="studententeryear != null" >
+        StudentEnterYear,
+      </if>
+      <if test="studentadddress != null" >
+        StudentAdddress,
+      </if>
+      <if test="studentstatus != null" >
+        StudentStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentnumber != null" >
+        #{studentnumber,jdbcType=BIGINT},
+      </if>
+      <if test="studentname != null" >
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studetpassword != null" >
+        #{studetpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="studentclass != null" >
+        #{studentclass,jdbcType=VARCHAR},
+      </if>
+      <if test="studententeryear != null" >
+        #{studententeryear,jdbcType=DATE},
+      </if>
+      <if test="studentadddress != null" >
+        #{studentadddress,jdbcType=VARCHAR},
+      </if>
+      <if test="studentstatus != null" >
+        #{studentstatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.StudentExample" resultType="java.lang.Integer" >
+    select count(*) from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="record.studentnumber != null" >
+        StudentNumber = #{record.studentnumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentname != null" >
+        StudentName = #{record.studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studetpassword != null" >
+        StudetPassword = #{record.studetpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        Gender = #{record.gender,jdbcType=BIT},
+      </if>
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.college != null" >
+        College = #{record.college,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speciality != null" >
+        Speciality = #{record.speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentclass != null" >
+        StudentClass = #{record.studentclass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studententeryear != null" >
+        StudentEnterYear = #{record.studententeryear,jdbcType=DATE},
+      </if>
+      <if test="record.studentadddress != null" >
+        StudentAdddress = #{record.studentadddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentstatus != null" >
+        StudentStatus = #{record.studentstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student
+    set StudentNumber = #{record.studentnumber,jdbcType=BIGINT},
+      StudentName = #{record.studentname,jdbcType=VARCHAR},
+      StudetPassword = #{record.studetpassword,jdbcType=VARCHAR},
+      Gender = #{record.gender,jdbcType=BIT},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      College = #{record.college,jdbcType=VARCHAR},
+      Speciality = #{record.speciality,jdbcType=VARCHAR},
+      StudentClass = #{record.studentclass,jdbcType=VARCHAR},
+      StudentEnterYear = #{record.studententeryear,jdbcType=DATE},
+      StudentAdddress = #{record.studentadddress,jdbcType=VARCHAR},
+      StudentStatus = #{record.studentstatus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.Student" >
+    update student
+    <set >
+      <if test="studentname != null" >
+        StudentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studetpassword != null" >
+        StudetPassword = #{studetpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        Gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        College = #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        Speciality = #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="studentclass != null" >
+        StudentClass = #{studentclass,jdbcType=VARCHAR},
+      </if>
+      <if test="studententeryear != null" >
+        StudentEnterYear = #{studententeryear,jdbcType=DATE},
+      </if>
+      <if test="studentadddress != null" >
+        StudentAdddress = #{studentadddress,jdbcType=VARCHAR},
+      </if>
+      <if test="studentstatus != null" >
+        StudentStatus = #{studentstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where StudentNumber = #{studentnumber,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.Student" >
+    update student
+    set StudentName = #{studentname,jdbcType=VARCHAR},
+      StudetPassword = #{studetpassword,jdbcType=VARCHAR},
+      Gender = #{gender,jdbcType=BIT},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      College = #{college,jdbcType=VARCHAR},
+      Speciality = #{speciality,jdbcType=VARCHAR},
+      StudentClass = #{studentclass,jdbcType=VARCHAR},
+      StudentEnterYear = #{studententeryear,jdbcType=DATE},
+      StudentAdddress = #{studentadddress,jdbcType=VARCHAR},
+      StudentStatus = #{studentstatus,jdbcType=INTEGER}
+    where StudentNumber = #{studentnumber,jdbcType=BIGINT}
+  </update>
+</mapper>

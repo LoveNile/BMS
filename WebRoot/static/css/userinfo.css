@@ -1,0 +1,50 @@
+#user-info{
+  width: 100%;
+  height: 100%;
+  margin-left: -100px;
+   display: none;
+}
+.user-info-readonly {
+  width: 400px;
+  height: 500px;
+  margin-left: 40%;
+  margin-top: 30px;
+  font-size: 0;
+  background-color: white;
+  position: absolute;
+}
+.user-info-readonly span {
+    font-size: 14px;
+    display: inline-block;
+}
+.user-info-ul li {
+    margin-top: 10px;
+}
+.user-info-ul .btn {
+    width: 100px;
+    margin-left: 15px;
+}
+.user-a {
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+}
+.user-b {
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    margin-left: 10px;
+}
+.user-info-readonly img {
+  width: 100px;
+  height: 100px;
+  margin-left: 10px;
+}
+.student-info-ul li{
+  list-style: none;
+  margin-top: 10px;
+}
+
+

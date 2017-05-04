@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.BorrowMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.Borrow" >
+    <id column="BorrowId" property="borrowid" jdbcType="INTEGER" />
+    <result column="BookId" property="bookid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="BorrowDate" property="borrowdate" jdbcType="TIMESTAMP" />
+    <result column="BorrowDay" property="borrowday" jdbcType="INTEGER" />
+    <result column="IsReturn" property="isreturn" jdbcType="BIT" />
+    <result column="ReturnTime" property="returntime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BorrowId, BookId, UserId, BorrowDate, BorrowDay, IsReturn, ReturnTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.BorrowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow
+    where BorrowId = #{borrowid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from borrow
+    where BorrowId = #{borrowid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.BorrowExample" >
+    delete from borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.Borrow" >
+    insert into borrow (BorrowId, BookId, UserId, 
+      BorrowDate, BorrowDay, IsReturn, 
+      ReturnTime)
+    values (#{borrowid,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{borrowdate,jdbcType=TIMESTAMP}, #{borrowday,jdbcType=INTEGER}, #{isreturn,jdbcType=BIT}, 
+      #{returntime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.Borrow" >
+    insert into borrow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="borrowid != null" >
+        BorrowId,
+      </if>
+      <if test="bookid != null" >
+        BookId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="borrowdate != null" >
+        BorrowDate,
+      </if>
+      <if test="borrowday != null" >
+        BorrowDay,
+      </if>
+      <if test="isreturn != null" >
+        IsReturn,
+      </if>
+      <if test="returntime != null" >
+        ReturnTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="borrowid != null" >
+        #{borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowdate != null" >
+        #{borrowdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowday != null" >
+        #{borrowday,jdbcType=INTEGER},
+      </if>
+      <if test="isreturn != null" >
+        #{isreturn,jdbcType=BIT},
+      </if>
+      <if test="returntime != null" >
+        #{returntime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.BorrowExample" resultType="java.lang.Integer" >
+    select count(*) from borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update borrow
+    <set >
+      <if test="record.borrowid != null" >
+        BorrowId = #{record.borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookid != null" >
+        BookId = #{record.bookid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        UserId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowdate != null" >
+        BorrowDate = #{record.borrowdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.borrowday != null" >
+        BorrowDay = #{record.borrowday,jdbcType=INTEGER},
+      </if>
+      <if test="record.isreturn != null" >
+        IsReturn = #{record.isreturn,jdbcType=BIT},
+      </if>
+      <if test="record.returntime != null" >
+        ReturnTime = #{record.returntime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update borrow
+    set BorrowId = #{record.borrowid,jdbcType=INTEGER},
+      BookId = #{record.bookid,jdbcType=INTEGER},
+      UserId = #{record.userid,jdbcType=INTEGER},
+      BorrowDate = #{record.borrowdate,jdbcType=TIMESTAMP},
+      BorrowDay = #{record.borrowday,jdbcType=INTEGER},
+      IsReturn = #{record.isreturn,jdbcType=BIT},
+      ReturnTime = #{record.returntime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.Borrow" >
+    update borrow
+    <set >
+      <if test="bookid != null" >
+        BookId = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowdate != null" >
+        BorrowDate = #{borrowdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowday != null" >
+        BorrowDay = #{borrowday,jdbcType=INTEGER},
+      </if>
+      <if test="isreturn != null" >
+        IsReturn = #{isreturn,jdbcType=BIT},
+      </if>
+      <if test="returntime != null" >
+        ReturnTime = #{returntime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BorrowId = #{borrowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.Borrow" >
+    update borrow
+    set BookId = #{bookid,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=INTEGER},
+      BorrowDate = #{borrowdate,jdbcType=TIMESTAMP},
+      BorrowDay = #{borrowday,jdbcType=INTEGER},
+      IsReturn = #{isreturn,jdbcType=BIT},
+      ReturnTime = #{returntime,jdbcType=TIMESTAMP}
+    where BorrowId = #{borrowid,jdbcType=INTEGER}
+  </update>
+</mapper>

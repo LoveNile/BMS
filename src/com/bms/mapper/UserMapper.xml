@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.bms.po.User" >
+    <id column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Gender" property="gender" jdbcType="BIT" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Birthday" property="birthday" jdbcType="DATE" />
+    <result column="RegisterTime" property="registertime" jdbcType="TIMESTAMP" />
+    <result column="PicPath" property="picpath" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="DelMaker" property="delmaker" jdbcType="BIT" />
+    <result column="StudentNumber" property="studentnumber" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    UserId, UserName, Password, Gender, Phone, Email, Birthday, RegisterTime, PicPath, 
+    status, DelMaker, StudentNumber
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where UserId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where UserId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bms.po.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bms.po.User" >
+    insert into user (UserId, UserName, Password, 
+      Gender, Phone, Email, Birthday, 
+      RegisterTime, PicPath, status, 
+      DelMaker, StudentNumber)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=BIT}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
+      #{registertime,jdbcType=TIMESTAMP}, #{picpath,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
+      #{delmaker,jdbcType=BIT}, #{studentnumber,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bms.po.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="gender != null" >
+        Gender,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="birthday != null" >
+        Birthday,
+      </if>
+      <if test="registertime != null" >
+        RegisterTime,
+      </if>
+      <if test="picpath != null" >
+        PicPath,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="delmaker != null" >
+        DelMaker,
+      </if>
+      <if test="studentnumber != null" >
+        StudentNumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picpath != null" >
+        #{picpath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="delmaker != null" >
+        #{delmaker,jdbcType=BIT},
+      </if>
+      <if test="studentnumber != null" >
+        #{studentnumber,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bms.po.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userid != null" >
+        UserId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        Gender = #{record.gender,jdbcType=BIT},
+      </if>
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        Birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.registertime != null" >
+        RegisterTime = #{record.registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.picpath != null" >
+        PicPath = #{record.picpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.delmaker != null" >
+        DelMaker = #{record.delmaker,jdbcType=BIT},
+      </if>
+      <if test="record.studentnumber != null" >
+        StudentNumber = #{record.studentnumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set UserId = #{record.userid,jdbcType=INTEGER},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      Password = #{record.password,jdbcType=VARCHAR},
+      Gender = #{record.gender,jdbcType=BIT},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      Birthday = #{record.birthday,jdbcType=DATE},
+      RegisterTime = #{record.registertime,jdbcType=TIMESTAMP},
+      PicPath = #{record.picpath,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=BIT},
+      DelMaker = #{record.delmaker,jdbcType=BIT},
+      StudentNumber = #{record.studentnumber,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bms.po.User" >
+    update user
+    <set >
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        Gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        Birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="registertime != null" >
+        RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picpath != null" >
+        PicPath = #{picpath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="delmaker != null" >
+        DelMaker = #{delmaker,jdbcType=BIT},
+      </if>
+      <if test="studentnumber != null" >
+        StudentNumber = #{studentnumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bms.po.User" >
+    update user
+    set UserName = #{username,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Gender = #{gender,jdbcType=BIT},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      Birthday = #{birthday,jdbcType=DATE},
+      RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      PicPath = #{picpath,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      DelMaker = #{delmaker,jdbcType=BIT},
+      StudentNumber = #{studentnumber,jdbcType=BIGINT}
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

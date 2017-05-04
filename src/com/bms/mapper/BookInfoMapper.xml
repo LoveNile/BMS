@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.BookInfoMapper">
+
+     <select id="getBookInfo" parameterType="com.bms.vo.BookQueryVo" resultType="com.bms.vo.BookCustom">
+        SELECT 
+            book.BookId,
+            book.BookName,
+            book.BookAuthor,
+            book.CategoryId,
+            book.BookPress,
+            book.PublishedDate,
+            book.BookEnterTime,
+            book.BookIntroduction,
+            book.BookAddress,
+            book.BookPicPath,
+            book.DelMaker,
+            book_stock.BookNumber
+        FROM book
+        LEFT JOIN book_stock
+        ON book.BookId = book_stock.BookId
+        WHERE book.DelMaker = 0 
+
+            <if test="#{keyWord} != null">
+                AND book.BookName LIKE CONCAT('%',#{keyWord},'%')
+            </if>
+            <if test="#{startTime} != null">
+                AND book.BookEnterTime <![CDATA[ >= ]]> #{startTime}
+            </if>
+            <if test="#{endTime} != null">
+                AND book.BookEnterTime <![CDATA[ <= ]]> #{endTime}
+            </if>
+        
+        Limit #{pageSetVo.pageOffset},#{pageSetVo.pageValue}
+     </select>
+     
+     <select id="getCountBook" parameterType="com.bms.vo.BookQueryVo" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM book
+        LEFT JOIN book_stock
+        ON book.BookId = book_stock.BookId
+        WHERE book.DelMaker = 0 
+        <if test="#{keyWord} != null">
+            AND book.BookName LIKE CONCAT('%',#{keyWord},'%')
+        </if>
+        <if test="#{startTime} != null">
+            AND book.BookEnterTime <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="#{endTime} != null">
+            AND book.BookEnterTime <![CDATA[ <= ]]> #{endTime}
+        </if>
+     </select>
+</mapper>
