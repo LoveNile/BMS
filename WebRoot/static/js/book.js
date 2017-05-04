@@ -25,6 +25,7 @@ $(".user-img").on('click',function(){
             $(".book-info-ul").on('click',function(){
                 alert(1);
                 alert(1);
+                alert(1);
             });
         }
         $.each(data.listCategoryCustom,function(i,n){
