@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bms.Constants;
 import com.bms.service.BookService;
 import com.bms.util.DateUtil;
+import com.bms.vo.BookCustom;
 import com.bms.vo.BookQueryVo;
 import com.bms.vo.PageSetVo;
 
@@ -32,8 +34,9 @@ public class BooksInfoController extends BaseController {
     @ResponseBody
     public BookQueryVo getBookInfo(@RequestParam(value = "current",defaultValue = "1")String current,
              @RequestParam(value = "startTime", defaultValue = "") String startTime,
-             @RequestParam(value = "endTime",  defaultValue = "") String endTime,
-             @RequestParam(value = "keyWord", defaultValue = "") String keyWord) {
+             @RequestParam(value = "endTime", defaultValue = "") String endTime,
+             @RequestParam(value = "keyWord", defaultValue = "") String keyWord,
+             @RequestParam(value = "category", defaultValue = "") String category) {
         BookQueryVo bookQueryVo = new BookQueryVo();
         PageSetVo pageSetVo = new PageSetVo();
         pageSetVo.setCurrentpage(Integer.parseInt(current));
@@ -41,9 +44,19 @@ public class BooksInfoController extends BaseController {
         bookQueryVo.setPageSetVo(pageSetVo);
         bookQueryVo.setStartTime(DateUtil.getSimpleDate(startTime));
         bookQueryVo.setEndTime(DateUtil.getSimpleDate(endTime));
-        bookQueryVo.setKeyWord(keyWord);
+        if (!keyWord.equals("")) {
+            bookQueryVo.setKeyWord(keyWord);
+        }
+        if (!Constants.BMS_CATEGORY_ALL.equals(category)) {
+            bookQueryVo.setCategory(category);
+        }
         bookService.getBookInfoList(bookQueryVo);
         return bookQueryVo;
     }
 
+    @RequestMapping(value = "/detail",  method = RequestMethod.POST)
+    @ResponseBody
+    public BookCustom getDetaiBookInfo(@RequestParam(value = "bookid", defaultValue = "")String bookid){
+        return bookService.getBookInfo(bookid);
+    }
 }

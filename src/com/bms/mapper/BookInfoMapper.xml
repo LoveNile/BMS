@@ -15,22 +15,26 @@
             book.BookAddress,
             book.BookPicPath,
             book.DelMaker,
-            book_stock.BookNumber
+            IFNULL(book_stock.BookNumber,0) AS BookNumber,
+            category.CategoryName
         FROM book
         LEFT JOIN book_stock
         ON book.BookId = book_stock.BookId
+        LEFT JOIN category
+        ON book.CategoryId = category.CategoryId
         WHERE book.DelMaker = 0 
-
-            <if test="#{keyWord} != null">
+            <if test="keyWord != null">
                 AND book.BookName LIKE CONCAT('%',#{keyWord},'%')
             </if>
-            <if test="#{startTime} != null">
+            <if test="startTime != null">
                 AND book.BookEnterTime <![CDATA[ >= ]]> #{startTime}
             </if>
-            <if test="#{endTime} != null">
+            <if test="endTime != null">
                 AND book.BookEnterTime <![CDATA[ <= ]]> #{endTime}
             </if>
-        
+            <if test="category != null">
+                AND category.CategoryName = #{category}
+            </if>
         Limit #{pageSetVo.pageOffset},#{pageSetVo.pageValue}
      </select>
      
@@ -39,15 +43,35 @@
         FROM book
         LEFT JOIN book_stock
         ON book.BookId = book_stock.BookId
+        LEFT JOIN category
+        ON book.CategoryId = category.CategoryId
         WHERE book.DelMaker = 0 
-        <if test="#{keyWord} != null">
+        <if test="keyWord != null">
             AND book.BookName LIKE CONCAT('%',#{keyWord},'%')
         </if>
-        <if test="#{startTime} != null">
+        <if test="startTime != null">
             AND book.BookEnterTime <![CDATA[ >= ]]> #{startTime}
         </if>
-        <if test="#{endTime} != null">
+        <if test="endTime != null">
             AND book.BookEnterTime <![CDATA[ <= ]]> #{endTime}
         </if>
+        <if test="category != null">
+                AND category.CategoryName = #{category}
+        </if>
+     </select>
+     
+     <select id="getDetailBookInfo" parameterType="java.lang.Integer" resultType="com.bms.vo.BookCustom">
+        SELECT book.BookName,
+             book.BookAuthor,
+             book.BookPress,
+             book.PublishedDate,
+             book.BookEnterTime,
+             book.BookIntroduction,
+             book.BookAddress,
+             category.CategoryName
+         FROM book
+         LEFT JOIN category
+         ON book.CategoryId = category.CategoryId
+         WHERE book.BookId = #{id}
      </select>
 </mapper>

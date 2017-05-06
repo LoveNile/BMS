@@ -11,6 +11,15 @@ public class BookQueryVo {
     private Date startTime;
     private Date endTime;
     private String keyWord;
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public List<BookCustom> getListBookCustom() {
         return listBookCustom;

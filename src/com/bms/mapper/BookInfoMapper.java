@@ -10,4 +10,5 @@ public interface BookInfoMapper {
     List<BookCustom> getBookInfo(BookQueryVo bookQueryVo);
 
     int getCountBook(BookQueryVo bookQueryVo);
+    BookCustom getDetailBookInfo(int bookid);
 }

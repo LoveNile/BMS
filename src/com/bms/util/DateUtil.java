@@ -11,12 +11,14 @@ public class DateUtil {
     }
 
     public static Date getSimpleDate(String dateString) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date;
-        try {
-            date = simpleDateFormat.parse(dateString);
-        } catch (ParseException e) {
-            date = getNowDate();
+        Date date = null;
+        if (!dateString.equals("")) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                date = simpleDateFormat.parse(dateString);
+            } catch (ParseException e) {
+                date = getNowDate();
+            }
         }
         return date;
     }

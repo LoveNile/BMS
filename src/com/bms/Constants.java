@@ -21,6 +21,6 @@ public class Constants {
     public static final String BMS_ACTIVATION_ERROR_ONE = "激活失败";
     public static final String BMS_ACTIVATION_ERROR_TWO  = "用户已激活";
     public static final String BMS_ACTIVATION_SUCCESS  = "激活成功";
-
+    public static final String BMS_CATEGORY_ALL = "全部";
 }
 

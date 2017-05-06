@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <li>
                         <span><i class="icon-flag"></i>违约记录</span>
                     </li>
-                    <li>
+                    <li class="logout">
                         <span><i class="icon-off"></i>退出登录</span>
                     </li>
                 </ul>
@@ -58,12 +58,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div id="page-content">
                 <div class="date-select">
                     <div class="input-append date data-select-first ">
-                        <input type="text" value="" readonly>
+                        <input type="text" class="starttime" value="" readonly>
                         <span class="add-on"><i class="icon-th"></i></span>
                     </div>
                     <span class="date-minus"></span>
                     <div class="input-append date data-select-second ">
-                        <input type="text" value="" readonly>
+                        <input type="text" class="endtime" value="" readonly>
                         <span class="add-on"><i class="icon-th"></i></span>
                     </div>
                     
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </ul>
                 </div>
                 <div class="book-search">
-                    <input type="text" name="search" placeholder="Keyword" autocomplete="off">
+                    <input type="text" name="search" class="keyword" placeholder="Keyword" autocomplete="off">
                     <i class="icon-search icon-large i-search"></i>
                 </div>
                 <div id="book-info">
@@ -136,17 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <nav class="page-set" aria-label="Page navigation">
                     <ul class="pagination pageset-ul">
-                        <li class="disabled"><span>首页</span></li>
-                        <li class="disabled"><span>上一页</span></li>
-                        <li class="active"><span>1</span></li>
-                        <li><span>2</span></li>
-                        <li><span>3</span></li>
-                        <li><span>4</span></li>
-                        <li><span>5</span></li>
-                        <li><span>6</span></li>
-                        <li><span>7</span></li>
-                        <li><span>下一页</span></li>
-                        <li><span>尾页</span></li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -226,15 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="modal-body">
                         <ul class="bookmodal-info-ul">
-                            <li><span>书名:</span><span>深入理解java虚拟机</span></li>
-                            <li><span>图片:</span><span>Nile</span></li>
-                            <li><span>作者:</span><span>李白</span></li>
-                            <li><span>分类:</span><span>计算机科学</span></li>
-                            <li><span>出版社:</span><span>清华大些出版社</span></li>
-                            <li><span>发行时间:</span><span>2015-4-15</span></li>
-                            <li><span>入馆时间:</span><span>2015-4-15</span></li>
-                            <li><span>书籍位置:</span><span>八楼西12书架</span></li>
-                            <li><span>书籍介绍:</span><span>是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用4857897897987979797977</span></li>
+                            
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -282,6 +264,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         var selectLi=$(this).text();
                         $(".category-select span").text(selectLi);
                         $(".category-select ul").slideUp(400);
+                        showbookinfo();
                     });
                     ul.mouseleave(function() {
                         $('.category-select ul').slideUp(400);
