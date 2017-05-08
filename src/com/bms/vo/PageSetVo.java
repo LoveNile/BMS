@@ -4,7 +4,7 @@ public class PageSetVo {
     private int pageCount;//总页数
     private int totalCount;//总记录数
     private int currentPage;//当前页
-    private int pageValue;//分页值 10
+    private int pageValue;//分页值 6
     private int pageOffset;//偏移 1
 
     public int getTotalcount() {
@@ -12,6 +12,7 @@ public class PageSetVo {
     }
     public void setTotalcount(int totalcount) {
         this.totalCount = totalcount;
+        getPageoffset();
     }
     public int getPagecount() {
         if (totalCount < 1) {
@@ -38,7 +39,7 @@ public class PageSetVo {
         this.pageValue = pagevalue;
     }
     public int getPageoffset() {
-        pageOffset = (getCurrentpage()-1) * getPagevalue();
+        pageOffset = (getCurrentpage() - 1) * getPagevalue();
         return pageOffset;
     }
 }

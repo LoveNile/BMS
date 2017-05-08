@@ -22,9 +22,6 @@ public class BookServiceImpl implements BookService {
     public void getBookInfoList(BookQueryVo bookQueryVo) {
         int countBook = bookInfoMapper.getCountBook(bookQueryVo);
         bookQueryVo.getPageSetVo().setTotalcount(countBook);
-        if (bookQueryVo.getPageSetVo().getCurrentpage() > bookQueryVo.getPageSetVo().getPagecount()) {
-            bookQueryVo.getPageSetVo().setCurrentpage(bookQueryVo.getPageSetVo().getPagecount());
-        }
         List<BookCustom> listBookCustom = bookInfoMapper.getBookInfo(bookQueryVo);
         bookQueryVo.setListBookCustom(listBookCustom);
         List<CategoryCustom> listCategoryCustom = categoryCustomMapper.getAllCategory();

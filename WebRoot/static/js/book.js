@@ -1,12 +1,13 @@
 $(function(){
-    showbookinfo();
+    showbookinfo(1);
 });
-function showbookinfo(){
+function showbookinfo(currentpage){
     $(".book-ul").empty();
     $(".category-ul").empty();
+    $(".pagination").empty();
     $(".book-ul").css("background-image","url()"); 
     var url = '/BMS/book/bookinfo';
-    var dataMessage = {current : $(".active-span").text(),startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text()};
+    var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text()};
     $.post(url,dataMessage,function(data){
         pageSet(data.pageSetVo.currentpage,data.pageSetVo.pagecount);
         if ($.isEmptyObject(data.listBookCustom)) {
@@ -54,28 +55,74 @@ function showbookinfo(){
 }
 
 $(".icon-search").click(function(){
-    showbookinfo();
+    showbookinfo(1);
 });
 $(".logout").click(function(){
     location.href = "/BMS/user/logout"
 });
 
 function pageSet(currentpage, pagecount){
-    $(".pageset-ul").append("<li id='1'><span>首页</span></li>" +
-    "<li><span>上一页</span></li>");
-    if(pagecount < 5) {
+    $(".pageset-ul").append("<li id='1' class='firstpage oncurrentpage'><span>首页</span></li>" +
+    "<li class='previous'><span>上一页</span></li>");
+    if(pagecount <= 5) {
         for(var i = 1; i <= pagecount; i++){
             if (currentpage == i){
-                $(".pageset-ul").append("<li id='"+ i +"'  class='active'><span>"+ i +"</span></li>");
+                $(".pageset-ul").append("<li id='"+ i +"' class='active'><span>"+ i +"</span></li>");
             } else {
                 $(".pageset-ul").append("<li id='"+ i +"'><span>"+ i +"</span></li>");
             }
         }
+    } else {
+        if(currentpage <= 3){
+            for(var i = 1; i <= 5; i++){
+                if (currentpage == i){
+                    $(".pageset-ul").append("<li id='"+ i +"'  class='active'><span>"+ i +"</span></li>");
+                } else {
+                    $(".pageset-ul").append("<li id='"+ i +"' class = 'oncurrentpage'><span>"+ i +"</span></li>");
+                }
+            }
+        } else if(currentpage > (pagecount-2)) {
+            for(var i = 4; i >= 0; i--){
+                if (currentpage == (pagecount-i)){
+                    $(".pageset-ul").append("<li id='"+ (pagecount-i) +"' class='active'><span>"+ (pagecount-i) +"</span></li>");
+                } else {
+                    $(".pageset-ul").append("<li id='"+ (pagecount-i) +"' class = 'oncurrentpage'><span>"+ (pagecount-i) +"</span></li>");
+                }
+            }
+        } else {
+            $(".pageset-ul").append("<li id='"+ (currentpage-2) +"' class = 'oncurrentpage'><span>"+ (currentpage-2) +"</span></li>" +
+                    "<li id='"+ (currentpage-1) +"' class = 'oncurrentpage'><span>"+ (currentpage-1) +"</span></li>" + 
+                    "<li id='"+ currentpage +"' class='active'><span>"+ currentpage +"</span></li>" +
+                    "<li id='"+ (currentpage+1) +"' class = 'oncurrentpage'><span>"+ (currentpage+1) +"</span></li>" +
+                    "<li id='"+ (currentpage+2) +"' class = 'oncurrentpage'><span>"+ (currentpage+2) +"</span></li>");
+        }
     }
-    $(".pageset-ul").append("<li><span>下一页</span></li>" +
-    "<li id = '" + pagecount + "'><span>尾页</span></li>");
+    $(".pageset-ul").append("<li class='nextpage'><span>下一页</span></li>" +
+    "<li id = '" + pagecount + "' class='endpage oncurrentpage'><span>尾页</span></li>");
+    if(currentpage != 1){
+        $(".previous").on("click",function(){
+            showbookinfo(parseInt($(".active").attr("id")) - 1);
+        });
+    }
+    if(currentpage != pagecount){
+        $(".nextpage").on("click",function(){
+            showbookinfo(parseInt($(".active").attr("id")) + 1);
+        });
+    }
+    if(currentpage == 1 || pagecount == 0) {
+        $(".firstpage").addClass("disabled");
+        $(".previous").addClass("disabled");
+    }
+    if(currentpage == pagecount){
+        $(".endpage").addClass("disabled");
+        $(".nextpage").addClass("disabled");
+    }
+    $(".oncurrentpage").on("click",function(){
+        showbookinfo($(this).attr("id"));
+    });
     
 }
+
 function formatedate(todate) {
     date = new Date(todate);
     var datetime = date.getFullYear()

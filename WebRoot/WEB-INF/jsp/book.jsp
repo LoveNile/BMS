@@ -264,7 +264,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         var selectLi=$(this).text();
                         $(".category-select span").text(selectLi);
                         $(".category-select ul").slideUp(400);
-                        showbookinfo();
+                        showbookinfo(1);
                     });
                     ul.mouseleave(function() {
                         $('.category-select ul').slideUp(400);
