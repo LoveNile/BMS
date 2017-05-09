@@ -58,10 +58,10 @@ function showbookinfo(currentpage){
             $.post(url,dataMessage,function(data){
                 $("#ts").html(data.borrowinfo);
                 borrow_show();
-                if(!data.borrowresult) {
-                   
+                if(data.borrowresult) {
+                    $(".alert h2").css("background-color","#449d44")
                 } else {
-                    
+                    $(".alert h2").css("background-color","#c9302c")
                 }
             });
         });
