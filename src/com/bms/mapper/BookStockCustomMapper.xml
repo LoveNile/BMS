@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.BookStockCustomMapper">
+    <update id="ChangebookStockById" parameterType="java.lang.Integer" >
+        UPDATE book_stock set BookNumber = BookNumber - 1 where BookId = #{id}
+    </update>
+</mapper>
