@@ -1,11 +1,9 @@
 package com.bms.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.bms.po.Borrow;
 import com.bms.po.BorrowExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface BorrowMapper {
     int countByExample(BorrowExample example);

@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="/BMS/static/css/reset.css">
         <link rel="stylesheet" href="/BMS/static/css/supersized.css">
         <link rel="stylesheet" href="/BMS/static/css/style.css">
-
+        <link rel="stylesheet" href="/BMS/static/css/alert.css">
     </head>
 
     <body oncontextmenu="return false">
@@ -79,22 +79,18 @@
             <h2>消息</h2>
             <div class="alert_con">
                 <p id="ts"></p>
-                <p style="line-height:70px"><a class="btn">确定</a></p>
+                <p style="line-height:70px"><a class="btnalert">确定</a></p>
             </div>
         </div>
-        <div class="overlay ">
-        </div>
+        <div class="overlay "></div>
         <!-- Javascript -->
         <script src="/BMS/static/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="/BMS/static/js/alert.js"></script>
         <script src="/BMS/static/js/supersized.3.2.7.min.js"></script>
         <script src="/BMS/static/js/supersized-init.js"></script>
         <script src="/BMS/static/js/register.js"></script>
         <script src="/BMS/static/js/forgetpassword.js"></script>
         <script>
-        $(".btn").click(function(){
-            is_hide();
-            overlay_hide();
-        });
         var u = $("input[name=username]");
         var p = $("input[name=password]");
         $("#submit").on('click',function(){
@@ -130,18 +126,6 @@
             $(".connect p").eq(0).animate({"left":"0%"}, 600);
             $(".connect p").eq(1).animate({"left":"0%"}, 400);
         };
-        function is_hide(){
-            $(".alert").animate({"top":"-40%"}, 300); 
-        };
-        function is_show(){
-            $(".alert").show().animate({"top":"45%"}, 300); 
-        };
-        function overlay_hide(){
-            $(".overlay ").hide();
-        };
-        function overlay_show(){
-            $(".overlay ").show();
-        }
         $(".forget").click(function(){
             $(".page-container").css("display","none");
             $(".mainforget").animate({opacity: "show" }, 1500);

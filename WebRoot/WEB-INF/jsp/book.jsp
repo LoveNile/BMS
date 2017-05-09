@@ -33,10 +33,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <li>
                         <span><i class="icon-pencil"></i>修改密码</span>
                     </li>
-                    <li>
+                    <li class="iconbook">
                         <span><i class="icon-book"></i>图书信息</span>
                     </li>
-                    <li>
+                    <li class="iconthlist">
                         <span><i class="icon-th-list"></i>借阅书籍</span>
                     </li>
                     <li>
@@ -225,11 +225,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
         </div>
+        <div class="overlay "></div>
+        <div class="alert">
+            <h2>消息</h2>
+            <div class="alert_con">
+                <p id="ts">借阅成功</p>
+                <p id="pbtn"><a class="btnborrowalert">确定</a></p>
+            </div>
+        </div>
     </body>
     <script src="/BMS/static/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/BMS/static/js/alert.js"></script>
     <script type="text/javascript" src="/BMS/static/js/book.js"></script>
     <script type="text/javascript" src="/BMS/static/js/bootstrap.js"></script>
     <script type="text/javascript" src="/BMS/static/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/BMS/static/js/switch.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
           var trigger = $('.hamburger'),

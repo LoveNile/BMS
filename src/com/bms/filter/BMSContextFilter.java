@@ -42,7 +42,7 @@ public class BMSContextFilter implements Filter {
         if (bmsContext.getObject(Constants.BMS_CONTEXT_SESSION) == null) {
             bmsContext.addObject(Constants.BMS_CONTEXT_SESSION, session);
         }
-        User user = (User) session.getAttribute(Constants.BMS_CONTEXT_SESSION);
+        User user = (User) session.getAttribute(Constants.BMS_CONTEXT_USER);
         bmsContext.addObject(Constants.BMS_CONTEXT_USER, user);
         try {
             chain.doFilter(req, res);

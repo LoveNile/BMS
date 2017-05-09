@@ -1,5 +1,6 @@
 $(function(){
     showbookinfo(1);
+    $(".iconbook").addClass("changecolor");
 });
 function showbookinfo(currentpage){
     $(".book-ul").empty();
@@ -23,7 +24,7 @@ function showbookinfo(currentpage){
                     "<span class='book-publish'>"+n.bookauthor+"</span>"+
                     "<span class='book-number'>"+n.booknumber+"</span>"+
                     "<button type='button' class='btn btn-info book-info-ul' id="+n.bookid+" data-toggle='modal' data-target='.book-more-info'>Info</button>"+
-                    "<button type='button' class='btn btn-danger'>Borrow</button>" +
+                    "<button type='button' class='btn btn-danger' id="+n.bookid+">Borrow</button>" +
                     "</li>"
                 );
             });
@@ -49,6 +50,20 @@ function showbookinfo(currentpage){
             $(".category-ul").append(
                 "<li>"+n.categoryname+"</li>"
             );
+        });
+        $(".btn-danger").on("click",function(){
+            overlay_show()
+            var url="/BMS/borrow/userBorrow";
+            var dataMessage = {bookid : $(this).attr("id")};
+            $.post(url,dataMessage,function(data){
+                $("#ts").html(data.borrowinfo);
+                borrow_show();
+                if(!data.borrowresult) {
+                   
+                } else {
+                    
+                }
+            });
         });
     });
     

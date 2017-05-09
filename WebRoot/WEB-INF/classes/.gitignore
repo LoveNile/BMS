@@ -1,8 +1,4 @@
 /applicationContext.xml
 /bms-mvc.xml
 /com/
-/database.properties
-/jmail.properties
-/log4j.properties
-/mybatis/
 /spring/

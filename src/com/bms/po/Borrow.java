@@ -17,6 +17,8 @@ public class Borrow {
 
     private Date returntime;
 
+    private Boolean isrenew;
+
     public Integer getBorrowid() {
         return borrowid;
     }
@@ -71,5 +73,13 @@ public class Borrow {
 
     public void setReturntime(Date returntime) {
         this.returntime = returntime;
+    }
+
+    public Boolean getIsrenew() {
+        return isrenew;
+    }
+
+    public void setIsrenew(Boolean isrenew) {
+        this.isrenew = isrenew;
     }
 }

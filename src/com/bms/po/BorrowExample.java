@@ -524,6 +524,66 @@ public class BorrowExample {
             addCriterion("ReturnTime not between", value1, value2, "returntime");
             return (Criteria) this;
         }
+
+        public Criteria andIsrenewIsNull() {
+            addCriterion("IsRenew is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewIsNotNull() {
+            addCriterion("IsRenew is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewEqualTo(Boolean value) {
+            addCriterion("IsRenew =", value, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewNotEqualTo(Boolean value) {
+            addCriterion("IsRenew <>", value, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewGreaterThan(Boolean value) {
+            addCriterion("IsRenew >", value, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("IsRenew >=", value, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewLessThan(Boolean value) {
+            addCriterion("IsRenew <", value, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewLessThanOrEqualTo(Boolean value) {
+            addCriterion("IsRenew <=", value, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewIn(List<Boolean> values) {
+            addCriterion("IsRenew in", values, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewNotIn(List<Boolean> values) {
+            addCriterion("IsRenew not in", values, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsRenew between", value1, value2, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrenewNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsRenew not between", value1, value2, "isrenew");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

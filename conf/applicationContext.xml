@@ -59,8 +59,9 @@
         
         <bean id="userService" class="com.bms.service.impl.UserServiceImpl"></bean>
         <bean id="bookService" class="com.bms.service.impl.BookServiceImpl"></bean>
+        <bean id="borrowService" class="com.bms.service.impl.BorrowServiceImpl"></bean>
         
         <bean id="userController" class="com.bms.controller.UserLoginController"></bean>
-        
         <bean id="booksInfoController" class="com.bms.controller.BooksInfoController"></bean>
+        <bean id="borrowInfoController" class="com.bms.controller.BorrowInfoController"></bean>
         </beans>
