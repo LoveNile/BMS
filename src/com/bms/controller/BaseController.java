@@ -20,6 +20,14 @@ public class BaseController {
         return "";
     }
 
+    public boolean getStudentNumber(){
+        User user = getUser();
+        if (user.getStudentnumber() == null) {
+            return false;
+        }
+        return true;
+    }
+
     public String getUserId() {
         User user = getUser();
         if (user != null) {

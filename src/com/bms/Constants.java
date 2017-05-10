@@ -22,5 +22,15 @@ public class Constants {
     public static final String BMS_ACTIVATION_ERROR_TWO  = "用户已激活";
     public static final String BMS_ACTIVATION_SUCCESS  = "激活成功";
     public static final String BMS_CATEGORY_ALL = "全部";
+
+
+
+    //借阅信息
+    public static final String BMS_BORROW_NORETURN = "已经借阅此图书，未归还！";
+    public static final String BMS_BORROW_NOSTOCK = "此图书已经被借阅完！";
+    public static final String BMS_BORROW_BACKGROUNDERROE = "借阅失败，请联系管理员！";
+    public static final String BMS_BORROW_MOREBOOKS = "借阅失败，借阅图书数量超出！";
+    public static final String BMS_BORROW_SUCCESS = "借阅成功";
+    public static final String BMS_BORROW_NOSTUDENTNUMBER = "请完善信息，再借阅书籍！";
 }
 

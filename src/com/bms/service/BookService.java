@@ -7,4 +7,5 @@ public interface BookService {
 
     void getBookInfoList(BookQueryVo bookQueryVo);
     BookCustom getBookInfo(String bookid);
+
 }

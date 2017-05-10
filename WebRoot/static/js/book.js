@@ -11,6 +11,7 @@ function showbookinfo(currentpage){
     var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text()};
     $.post(url,dataMessage,function(data){
         pageSet(data.pageSetVo.currentpage,data.pageSetVo.pagecount);
+        categoryset(data.listCategoryCustom);
         if ($.isEmptyObject(data.listBookCustom)) {
             $(".book-ul").css("background-image","url(/BMS/static/img/jocker.png)"); 
         } else {
@@ -21,7 +22,7 @@ function showbookinfo(currentpage){
                     "<img src='/BMS/pic/"+n.bookpicpath+"' class='img-rounded'>"+
                     "<span class='book-name'>"+n.bookname +"</span>"+
                     "<span class='book-autor'>"+n.bookauthor+"</span>"+
-                    "<span class='book-publish'>"+n.bookauthor+"</span>"+
+                    "<span class='book-publish'>"+ n.bookpress+"</span>"+
                     "<span class='book-number'>"+n.booknumber+"</span>"+
                     "<button type='button' class='btn btn-info book-info-ul' id="+n.bookid+" data-toggle='modal' data-target='.book-more-info'>Info</button>"+
                     "<button type='button' class='btn btn-danger' id="+n.bookid+">Borrow</button>" +
@@ -46,14 +47,9 @@ function showbookinfo(currentpage){
                 });
             });
         }
-        $.each(data.listCategoryCustom,function(i,n){
-            $(".category-ul").append(
-                "<li>"+n.categoryname+"</li>"
-            );
-        });
         $(".btn-danger").on("click",function(){
             overlay_show()
-            var url="/BMS/borrow/userBorrow";
+            var url="/BMS/borrow/userborrow";
             var dataMessage = {bookid : $(this).attr("id")};
             $.post(url,dataMessage,function(data){
                 $("#ts").html(data.borrowinfo);
@@ -76,6 +72,17 @@ $(".logout").click(function(){
     location.href = "/BMS/user/logout"
 });
 
+function categoryset(categorylist){
+    $(".category-ul").append(
+            "<li>全部</li>"
+    );
+    $.each(categorylist,function(i,n){
+        $(".category-ul").append(
+            "<li>"+n.categoryname+"</li>"
+        );
+    });
+}
+
 function pageSet(currentpage, pagecount){
     $(".pageset-ul").append("<li id='1' class='firstpage oncurrentpage'><span>首页</span></li>" +
     "<li class='previous'><span>上一页</span></li>");
@@ -84,7 +91,7 @@ function pageSet(currentpage, pagecount){
             if (currentpage == i){
                 $(".pageset-ul").append("<li id='"+ i +"' class='active'><span>"+ i +"</span></li>");
             } else {
-                $(".pageset-ul").append("<li id='"+ i +"'><span>"+ i +"</span></li>");
+                $(".pageset-ul").append("<li id='"+ i +"' class = 'oncurrentpage'><span>"+ i +"</span></li>");
             }
         }
     } else {
@@ -115,14 +122,18 @@ function pageSet(currentpage, pagecount){
     $(".pageset-ul").append("<li class='nextpage'><span>下一页</span></li>" +
     "<li id = '" + pagecount + "' class='endpage oncurrentpage'><span>尾页</span></li>");
     if(currentpage != 1){
-        $(".previous").on("click",function(){
-            showbookinfo(parseInt($(".active").attr("id")) - 1);
-        });
+        if(!$("#book-info").is(":hidden")){
+            $(".previous").on("click",function(){
+                showbookinfo(parseInt($(".active").attr("id")) - 1);
+            });
+        }
     }
     if(currentpage != pagecount){
-        $(".nextpage").on("click",function(){
-            showbookinfo(parseInt($(".active").attr("id")) + 1);
-        });
+        if(!$("#book-info").is(":hidden")){
+            $(".nextpage").on("click",function(){
+                showbookinfo(parseInt($(".active").attr("id")) + 1);
+            });
+        }
     }
     if(currentpage == 1 || pagecount == 0) {
         $(".firstpage").addClass("disabled");
@@ -133,7 +144,12 @@ function pageSet(currentpage, pagecount){
         $(".nextpage").addClass("disabled");
     }
     $(".oncurrentpage").on("click",function(){
-        showbookinfo($(this).attr("id"));
+        if(!$("#book-info").is(":hidden")){
+            showbookinfo($(this).attr("id"));
+        }
+        if(!$("#borrow-info").is(":hidden")){
+            showuserborrowbookinfo($(this).attr("id"));
+        }
     });
     
 }
@@ -149,3 +165,35 @@ function formatedate(todate) {
                     .getDate());
     return datetime;
 };
+function showuserborrowbookinfo(currentpage){
+    $(".borrow-ul").empty();
+    $(".category-ul").empty();
+    $(".pagination").empty();
+    $(".borrow-ul").css("background-image","url()"); 
+    var url = '/BMS/borrow/userborrowinfo';
+    var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text()};
+    $.post(url,dataMessage,function(data){
+        pageSet(data.pageSetVo.currentpage,data.pageSetVo.pagecount);
+        categoryset(data.listCategoryCustom);
+        if ($.isEmptyObject(data.listBorrowCustom)) {
+            $(".borrow-ul").css("background-image","url(/BMS/static/img/jocker.png)"); 
+        } else {
+            $.each(data.listBorrowCustom,function(i,n){
+                $(".borrow-ul").append(
+                        "<li>" +
+                        "<span class='borrow-order'>"+[i+1]+"</span>" +
+                        "<img src='/BMS/pic/"+n.bookpicpath+"' class='img-rounded'>"+
+                        "<span class='book-name'>"+n.bookname +"</span>"+
+                        "<span class='book-autor'>"+n.bookauthor+"</span>"+
+                        "<span class='book-borrow-date'>"+formatedate(n.borrowdate)+"</span>"+
+                        "<span class='book-borrow-days'>"+(n.borrowday + n.renewday)+"</span>"+
+                        "<button type='button' class='btn btn-info'>Info</button>" +
+                        "<button type='button' class='btn btn-warning'>Renew</button>" +
+                        "<button type='button' class='btn btn-success'>Back</button>" +
+                        "</li>"
+                    );
+            });
+        }
+        
+    });
+}

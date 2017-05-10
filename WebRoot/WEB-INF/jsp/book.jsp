@@ -100,17 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <span class="borrow-days">借阅天数</span>
                     </div>
                     <ul class="borrow-ul">
-                        <li>
-                            <span class="borrow-order">1</span>
-                            <img src="5.jpg" alt="..." class="img-rounded">
-                            <span class="book-name">大话java性能优化</span>
-                            <span class="book-autor">李白</span>
-                            <span class="book-borrow-date">2017-12-12</span>
-                            <span class="book-borrow-days">31</span>
-                            <button type="button" class="btn btn-info">Info</button>
-                            <button type="button" class="btn btn-warning">Renew</button>
-                            <button type="button" class="btn btn-success">Back</button>
-                        </li>
+                        
                     </ul>
                 </div>
                 <div id="borrow-history-info">
@@ -229,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="alert">
             <h2>消息</h2>
             <div class="alert_con">
-                <p id="ts">借阅成功</p>
+                <p id="ts"></p>
                 <p id="pbtn"><a class="btnborrowalert">确定</a></p>
             </div>
         </div>
@@ -274,7 +264,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         var selectLi=$(this).text();
                         $(".category-select span").text(selectLi);
                         $(".category-select ul").slideUp(400);
-                        showbookinfo(1);
+                        if(!$("#book-info").is(":hidden")){
+                            showbookinfo(1);
+                        }
+                        if(!$("#borrow-info").is(":hidden")){
+                            showuserborrowbookinfo(1);
+                        }
                     });
                     ul.mouseleave(function() {
                         $('.category-select ul').slideUp(400);
