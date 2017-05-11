@@ -31,6 +31,7 @@ function showbookinfo(currentpage){
             });
             $(".book-info-ul").on('click',function(){
                 $(".bookmodal-info-ul").empty();
+                $("#myModalLabelbookinfo").text("Book Infomation");
                 var url = "/BMS/book/detail";
                 var dataMessage = {bookid : $(this).attr("id")}; 
                 $.post(url,dataMessage,function(data){
@@ -62,11 +63,17 @@ function showbookinfo(currentpage){
             });
         });
     });
-    
 }
-
 $(".icon-search").click(function(){
-    showbookinfo(1);
+    if(!$("#book-info").is(":hidden")){
+        showbookinfo(1);
+    }
+    if(!$("#borrow-info").is(":hidden")){
+        showuserborrowbookinfo(1,"false");
+    }
+    if(!$("#borrow-history-info").is(":hidden")){
+        showuserborrowbookinfo(1,"true");
+    }
 });
 $(".logout").click(function(){
     location.href = "/BMS/user/logout"
@@ -127,11 +134,31 @@ function pageSet(currentpage, pagecount){
                 showbookinfo(parseInt($(".active").attr("id")) - 1);
             });
         }
+        if(!$("#borrow-info").is(":hidden")){
+            $(".previous").on("click",function(){
+                showuserborrowbookinfo(parseInt($(".active").attr("id")) - 1,"false");
+            });
+        }
+        if(!$("#borrow-history-info").is(":hidden")){
+            $(".previous").on("click",function(){
+                showuserborrowbookinfo(parseInt($(".active").attr("id")) - 1,"true");
+            });
+        }
     }
     if(currentpage != pagecount){
         if(!$("#book-info").is(":hidden")){
             $(".nextpage").on("click",function(){
                 showbookinfo(parseInt($(".active").attr("id")) + 1);
+            });
+        }
+        if(!$("#borrow-info").is(":hidden")){
+            $(".previous").on("click",function(){
+                showuserborrowbookinfo(parseInt($(".active").attr("id")) + 1,"false");
+            });
+        }
+        if(!$("#borrow-history-info").is(":hidden")){
+            $(".previous").on("click",function(){
+                showuserborrowbookinfo(parseInt($(".active").attr("id")) + 1,"true");
             });
         }
     }
@@ -148,7 +175,10 @@ function pageSet(currentpage, pagecount){
             showbookinfo($(this).attr("id"));
         }
         if(!$("#borrow-info").is(":hidden")){
-            showuserborrowbookinfo($(this).attr("id"));
+            showuserborrowbookinfo($(this).attr("id"),"false");
+        }
+        if(!$("#borrow-history-info").is(":hidden")){
+            showuserborrowbookinfo($(this).attr("id"),"true");
         }
     });
     
@@ -165,35 +195,147 @@ function formatedate(todate) {
                     .getDate());
     return datetime;
 };
-function showuserborrowbookinfo(currentpage){
+function showuserborrowbookinfo(currentpage,isreturn){
     $(".borrow-ul").empty();
     $(".category-ul").empty();
     $(".pagination").empty();
     $(".borrow-ul").css("background-image","url()"); 
+    $(".borrow-history-ul").css("background-image","url()"); 
+    $(".borrow-history-ul").empty();
     var url = '/BMS/borrow/userborrowinfo';
-    var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text()};
+    var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text(),isReturn:isreturn};
     $.post(url,dataMessage,function(data){
         pageSet(data.pageSetVo.currentpage,data.pageSetVo.pagecount);
         categoryset(data.listCategoryCustom);
+        var hasAuth = isreturn === 'true';
         if ($.isEmptyObject(data.listBorrowCustom)) {
             $(".borrow-ul").css("background-image","url(/BMS/static/img/jocker.png)"); 
+            $(".borrow-history-ul").css("background-image","url(/BMS/static/img/jocker.png)"); 
         } else {
-            $.each(data.listBorrowCustom,function(i,n){
-                $(".borrow-ul").append(
-                        "<li>" +
-                        "<span class='borrow-order'>"+[i+1]+"</span>" +
-                        "<img src='/BMS/pic/"+n.bookpicpath+"' class='img-rounded'>"+
-                        "<span class='book-name'>"+n.bookname +"</span>"+
-                        "<span class='book-autor'>"+n.bookauthor+"</span>"+
-                        "<span class='book-borrow-date'>"+formatedate(n.borrowdate)+"</span>"+
-                        "<span class='book-borrow-days'>"+(n.borrowday + n.renewday)+"</span>"+
-                        "<button type='button' class='btn btn-info'>Info</button>" +
-                        "<button type='button' class='btn btn-warning'>Renew</button>" +
-                        "<button type='button' class='btn btn-success'>Back</button>" +
-                        "</li>"
-                    );
-            });
+            if(hasAuth){
+                eachshowborrowhistorybooksinfo(data.listBorrowCustom);
+            } else {
+                eachshowborrowbooksinfo(data.listBorrowCustom);
+            }
         }
         
     });
+}
+function eachshowborrowbooksinfo(listBorrowCustom){
+    $.each(listBorrowCustom,function(i,n){
+        $(".borrow-ul").append(
+                "<li>" +
+                "<span class='borrow-order'>"+[i+1]+"</span>" +
+                "<img src='/BMS/pic/"+n.bookpicpath+"' class='img-rounded'>"+
+                "<span class='book-name'>"+n.bookname +"</span>"+
+                "<span class='book-autor'>"+n.bookauthor+"</span>"+
+                "<span class='book-borrow-date'>"+formatedate(n.borrowdate)+"</span>"+
+                "<span class='book-borrow-days'>"+(n.borrowday + n.renewday)+"</span>"+
+                "<button type='button' class='btn btn-info borrowbooksinfo' id="+n.borrowid+" data-toggle='modal' data-target='.book-more-info'>Info</button>" +
+                "<button type='button' class='btn btn-warning bookrenew' id="+n.borrowid+">Renew</button>" +
+                "<button type='button' class='btn btn-success backbook' id="+n.borrowid+">Back</button>" +
+                "</li>"
+            );
+    });
+    $(".bookrenew").on("click",function(){
+        overlay_show()
+        var url="/BMS/borrow/renew";
+        var dataMessage = {borrowid : $(this).attr("id")};
+        $.post(url,dataMessage,function(data){
+            $("#ts").html(data.msg);
+            borrow_show();
+            if(data.renewresult) {
+                $(".alert h2").css("background-color","#449d44");
+                
+            } else {
+                $(".alert h2").css("background-color","#c9302c")
+            }
+        });
+    });
+    $(".backbook").on("click",function(){
+        overlay_show()
+        var url="/BMS/borrow/backbook";
+        var dataMessage = {borrowid : $(this).attr("id")};
+        $.post(url,dataMessage,function(data){
+            $("#ts").html(data.msg);
+            borrow_show();
+            if(data.backresult) {
+                $(".alert h2").css("background-color","#449d44");
+                
+            } else {
+                $(".alert h2").css("background-color","#c9302c")
+            }
+        });
+    });
+    $(".borrowbooksinfo").on("click",function(){
+        var url="/BMS/borrow/borrowbookdetail";
+        var dataMessage = {borrowid : $(this).attr("id")};
+        $.post(url,dataMessage,function(data){
+            showdetailborrowbookinfo(data.borrowCustom);
+        });
+    });
+}
+function showdetailborrowbookinfo(data){
+    $(".bookmodal-info-ul").empty();
+    $("#myModalLabelbookinfo").text("Book Borrow Detail Info");
+    $(".bookmodal-info-ul").append(
+            "<li><span>书名:</span><span>" + data.bookname + "</span></li>"+
+            "<li><span>作者:</span><span>" + data.bookauthor + "</span></li>"+
+            "<li><span>借阅时间:</span><span>" + formatedate(data.borrowdate) + "</span></li>"+
+            "<li><span>借阅天数:</span><span>" + data.borrowday + "</span></li>"+
+            "<li><span>续借次数:</span><span>" + data.countrenewday + "</span></li>"+
+            "<li><span>续借天数:</span><span>" + data.renewday + "</span></li>"+
+            "<li><span>归还状态:</span><span>未归还</span></li>"
+     );
+}
+function eachshowborrowhistorybooksinfo(listBorrowCustom){
+    $.each(listBorrowCustom,function(i,n){
+        $(".borrow-history-ul").append(
+                "<li>" +
+                "<span class='borrow-history-order'>"+[i+1]+"</span>" +
+                "<img src='/BMS/pic/"+n.bookpicpath+"' class='img-rounded'>"+
+                "<span class='book-name'>"+n.bookname +"</span>"+
+                "<span class='book-autor'>"+n.bookauthor+"</span>"+
+                "<span class='book-borrow-date'>"+formatedate(n.borrowdate)+"</span>"+
+                "<span class='book-return-date'>"+formatedate(n.returntime)+"</span>"+
+                "<button type='button' class='btn btn-info borrowhistory' id="+n.borrowid+" data-toggle='modal' data-target='.book-more-info'>Info</button>" +
+                "<button type='button' class='btn btn-danger' id="+n.bookid+">Borrow</button>" +
+                "</li>"
+            );
+    });
+    $(".btn-danger").on("click",function(){
+        overlay_show()
+        var url="/BMS/borrow/userborrow";
+        var dataMessage = {bookid : $(this).attr("id")};
+        $.post(url,dataMessage,function(data){
+            $("#ts").html(data.borrowinfo);
+            borrow_show();
+            if(data.borrowresult) {
+                $(".alert h2").css("background-color","#449d44")
+            } else {
+                $(".alert h2").css("background-color","#c9302c")
+            }
+        });
+    });
+    $(".borrowhistory").on("click",function(){
+        var url="/BMS/borrow/gethistorybookinfo";
+        var dataMessage = {borrowid : $(this).attr("id")};
+        $.post(url,dataMessage,function(data){
+            showdetailhistoryborrowbookinfo(data.borrowCustom);
+        });
+    });
+}
+function showdetailhistoryborrowbookinfo(data){
+    $(".bookmodal-info-ul").empty();
+    $("#myModalLabelbookinfo").text("Book History Borrow Detail Info");
+    $(".bookmodal-info-ul").append(
+            "<li><span>书名:</span><span>" + data.bookname + "</span></li>"+
+            "<li><span>作者:</span><span>" + data.bookauthor + "</span></li>"+
+            "<li><span>借阅时间:</span><span>" + formatedate(data.borrowdate) + "</span></li>"+
+            "<li><span>借阅天数:</span><span>" + data.borrowday + "</span></li>"+
+            "<li><span>续借次数:</span><span>" + data.countrenewday + "</span></li>"+
+            "<li><span>续借天数:</span><span>" + data.renewday + "</span></li>"+
+            "<li><span>归还时间:</span><span>" + formatedate(data.returntime) + "</span></li>"+
+            "<li><span>归还状态:</span><span>归还</span></li>"
+     );
 }

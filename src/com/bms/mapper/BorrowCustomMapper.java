@@ -7,7 +7,11 @@ import com.bms.vo.BorrowCustom;
 
 public interface BorrowCustomMapper {
 
-    int CountUserBorrowBooks(int userid);
-    List<BorrowCustom> BorrowBooksAllInfo(BorrowBooksInfoVo borrowBooksInfoVo);
-    int CountBorrowBooksAllInfo(BorrowBooksInfoVo borrowBooksInfoVo);
+    int countUserBorrowBooks(int userid);
+    List<BorrowCustom> borrowBooksAllInfo(BorrowBooksInfoVo borrowBooksInfoVo);
+    int countBorrowBooksAllInfo(BorrowBooksInfoVo borrowBooksInfoVo);
+    int countUserRenewbook(int borrowid);
+    int updateBorrowStatus(int borrowid);
+    BorrowCustom getBorrowBooksDetailInfo(int borrowid);
+    BorrowCustom getHistoryDetail(int borrowid);
 }

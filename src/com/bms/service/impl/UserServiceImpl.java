@@ -10,7 +10,9 @@ import com.bms.exception.ActivationErrorException;
 import com.bms.exception.ForgetPasswordException;
 import com.bms.exception.LoginErrorException;
 import com.bms.exception.RegisterException;
+import com.bms.mapper.StudentMapper;
 import com.bms.mapper.UserMapper;
+import com.bms.po.Student;
 import com.bms.po.User;
 import com.bms.po.UserExample;
 import com.bms.po.UserExample.Criteria;
@@ -24,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public User getUserInfo(String username, String password) {
@@ -83,7 +87,8 @@ public class UserServiceImpl implements UserService {
             throw new RegisterException(Constants.BMS_REGISTER_FAIL);
         }
         try {
-            JMailUtil.BMSSendEmail(registerEmail, "BMS", "欢迎来到BMS！点此链接激活BMS账号http://localhost:8080/BMS/user/activation/5");
+            User user = (User) userMapper.selectByExample(usernameExample);
+            JMailUtil.BMSSendEmail(registerEmail, "BMS", "欢迎来到BMS！点此链接激活BMS账号http://localhost:8080/BMS/user/activation/"+user.getUserid());
         }
         catch (Exception e) {
             userMapper.deleteByExample(usernameExample);
@@ -115,8 +120,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean userActivation(String userName) {
-        User user = userMapper.selectByPrimaryKey(5);
+    public boolean userActivation(String id) {
+        User user = userMapper.selectByPrimaryKey(Integer.parseInt(id));
         if (user.getStatus()) {
             throw new ActivationErrorException(Constants.BMS_ACTIVATION_ERROR_TWO);
         } else {
@@ -141,6 +146,16 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public User getUserInfo(String userid) {
+        return userMapper.selectByPrimaryKey(Integer.parseInt(userid));
+    }
+
+    @Override
+    public Student getStudentInfoByNumber(long studentnumber) {
+        return studentMapper.selectByPrimaryKey(studentnumber);
     }
 
 }

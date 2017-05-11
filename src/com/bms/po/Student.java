@@ -25,7 +25,7 @@ public class Student {
 
     private String studentadddress;
 
-    private Integer studentstatus;
+    private Boolean studentstatus;
 
     public Long getStudentnumber() {
         return studentnumber;
@@ -115,11 +115,11 @@ public class Student {
         this.studentadddress = studentadddress == null ? null : studentadddress.trim();
     }
 
-    public Integer getStudentstatus() {
+    public Boolean getStudentstatus() {
         return studentstatus;
     }
 
-    public void setStudentstatus(Integer studentstatus) {
+    public void setStudentstatus(Boolean studentstatus) {
         this.studentstatus = studentstatus;
     }
 }

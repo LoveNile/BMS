@@ -882,52 +882,52 @@ public class StudentExample {
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusEqualTo(Integer value) {
+        public Criteria andStudentstatusEqualTo(Boolean value) {
             addCriterion("StudentStatus =", value, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusNotEqualTo(Integer value) {
+        public Criteria andStudentstatusNotEqualTo(Boolean value) {
             addCriterion("StudentStatus <>", value, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusGreaterThan(Integer value) {
+        public Criteria andStudentstatusGreaterThan(Boolean value) {
             addCriterion("StudentStatus >", value, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStudentstatusGreaterThanOrEqualTo(Boolean value) {
             addCriterion("StudentStatus >=", value, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusLessThan(Integer value) {
+        public Criteria andStudentstatusLessThan(Boolean value) {
             addCriterion("StudentStatus <", value, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusLessThanOrEqualTo(Integer value) {
+        public Criteria andStudentstatusLessThanOrEqualTo(Boolean value) {
             addCriterion("StudentStatus <=", value, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusIn(List<Integer> values) {
+        public Criteria andStudentstatusIn(List<Boolean> values) {
             addCriterion("StudentStatus in", values, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusNotIn(List<Integer> values) {
+        public Criteria andStudentstatusNotIn(List<Boolean> values) {
             addCriterion("StudentStatus not in", values, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusBetween(Integer value1, Integer value2) {
+        public Criteria andStudentstatusBetween(Boolean value1, Boolean value2) {
             addCriterion("StudentStatus between", value1, value2, "studentstatus");
             return (Criteria) this;
         }
 
-        public Criteria andStudentstatusNotBetween(Integer value1, Integer value2) {
+        public Criteria andStudentstatusNotBetween(Boolean value1, Boolean value2) {
             addCriterion("StudentStatus not between", value1, value2, "studentstatus");
             return (Criteria) this;
         }

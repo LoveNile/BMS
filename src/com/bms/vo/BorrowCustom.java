@@ -8,7 +8,14 @@ public class BorrowCustom extends Borrow {
     private String bookauthor;
     private String bookpicpath;
     private Integer renewday;
+    private int countrenewday;
 
+    public int getCountrenewday() {
+        return countrenewday;
+    }
+    public void setCountrenewday(int countrenewday) {
+        this.countrenewday = countrenewday;
+    }
     public String getBookname() {
         return bookname;
     }

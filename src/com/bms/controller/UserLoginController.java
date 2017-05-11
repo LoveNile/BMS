@@ -19,6 +19,7 @@ import com.bms.exception.ActivationErrorException;
 import com.bms.exception.ForgetPasswordException;
 import com.bms.exception.LoginErrorException;
 import com.bms.exception.RegisterException;
+import com.bms.po.Student;
 import com.bms.po.User;
 import com.bms.service.UserService;
 
@@ -76,7 +77,7 @@ public class UserLoginController extends BaseController {
     public ModelAndView userActivation(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
         try {
-            userService.userActivation("5");
+            userService.userActivation(id);
             modelAndView.addObject("activationMsg", Constants.BMS_ACTIVATION_SUCCESS);
         }
         catch (ActivationErrorException e) {
@@ -119,4 +120,17 @@ public class UserLoginController extends BaseController {
         }
         return false;
     }
+
+    @RequestMapping(value = "/getuserinfo", method = RequestMethod.POST)
+    @ResponseBody
+    public User getLoginUserInfo() {
+        return userService.getUserInfo(this.getUserId());
+    }
+
+    @RequestMapping(value = "/getstudentinfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Student getStudentInfo() {
+        return userService.getStudentInfoByNumber(this.getStudentNumber());
+    }
+
 }

@@ -8,8 +8,9 @@ $(".iconthlist").on("click",function(){
     $("#book-info").hide();
     $("#borrow-history-info").hide();
     $("#user-info").hide();
+    $("#page-content").show();
     $("#borrow-info").show();
-    showuserborrowbookinfo(1);
+    showuserborrowbookinfo(1,"false");
 });
 $(".iconbook").on("click",function(){
     clearpage();
@@ -18,13 +19,32 @@ $(".iconbook").on("click",function(){
     $("#borrow-history-info").hide();
     $("#user-info").hide();
     $("#borrow-info").hide();
+    $("#page-content").show();
     $("#book-info").show();
     showbookinfo(1);
+});
+$(".icontime").on("click",function(){
+    clearpage();
+    removechangecolor();
+    $(this).addClass("changecolor");
+    $("#page-content").show();
+    $("#borrow-history-info").show();
+    $("#user-info").hide();
+    $("#borrow-info").hide();
+    $("#book-info").hide();
+    showuserborrowbookinfo(1,"true");
+});
+$(".iconuser").on("click",function(){
+    clearpage();
+    removechangecolor();
+    $(this).addClass("changecolor");
+    $("#page-content").hide();
+    $("#user-info").show();
+    getuserinfo();
 });
 function clearpage(){
     $(".starttime").val("");
     $(".endtime").val("");
     $(".keyword").val("");
     $(".category-span").text("全部");
-    
 }

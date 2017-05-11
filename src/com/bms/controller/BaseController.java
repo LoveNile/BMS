@@ -20,7 +20,7 @@ public class BaseController {
         return "";
     }
 
-    public boolean getStudentNumber(){
+    public boolean isHaveStudentNumber(){
         User user = getUser();
         if (user.getStudentnumber() == null) {
             return false;
@@ -28,6 +28,10 @@ public class BaseController {
         return true;
     }
 
+    public long getStudentNumber(){
+        User user = getUser();
+        return user.getStudentnumber();
+    }
     public String getUserId() {
         User user = getUser();
         if (user != null) {

@@ -1,5 +1,6 @@
 package com.bms.service;
 
+import com.bms.po.Student;
 import com.bms.po.User;
 
 public interface UserService {
@@ -10,7 +11,11 @@ public interface UserService {
 
     String userForgetPassword(String username);
 
-    boolean userActivation(String userName);
+    boolean userActivation(String id);
 
     boolean updatePassword(String password);
+
+    User getUserInfo(String userid);
+
+    Student getStudentInfoByNumber(long studentnumber);
 }

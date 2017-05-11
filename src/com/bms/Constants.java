@@ -15,7 +15,7 @@ public class Constants {
     public static final String BMS_REGISTER_ERROR_EMAIL = "邮箱已经被注册！";
     public static final String BMS_REGISTER_ERROR = "用户名和邮箱已经被注册！";
     public static final String BMS_REGISTER_FAIL = "注册失败！";
-    public static final String BMS_REGISTER_SUCCESS = "注册成功！";
+    public static final String BMS_REGISTER_SUCCESS = "注册成功,成功发送邮件，请激活！";
     public static final String BMS_FORGET_PASSWORD = "此邮箱没有注册！";
     public static final String BMS_FORGET_SUCCESS = "已经向{0}发送邮件验证码";
     public static final String BMS_ACTIVATION_ERROR_ONE = "激活失败";
@@ -32,5 +32,6 @@ public class Constants {
     public static final String BMS_BORROW_MOREBOOKS = "借阅失败，借阅图书数量超出！";
     public static final String BMS_BORROW_SUCCESS = "借阅成功";
     public static final String BMS_BORROW_NOSTUDENTNUMBER = "请完善信息，再借阅书籍！";
+    public static final String BMS_BORROW_STUDENT_ERROR = "学生已离校！";
 }
 

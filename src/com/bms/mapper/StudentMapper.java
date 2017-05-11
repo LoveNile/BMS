@@ -1,11 +1,9 @@
 package com.bms.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.bms.po.Student;
 import com.bms.po.StudentExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface StudentMapper {
     int countByExample(StudentExample example);

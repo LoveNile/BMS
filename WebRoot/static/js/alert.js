@@ -20,5 +20,13 @@ $(".btnalert").on("click",function(){
 $(".btnborrowalert").on("click",function(){
     overlay_hide();
     is_hide();
-    showbookinfo($(".active").attr("id"));
+    if(!$("#book-info").is(":hidden")){
+        showbookinfo($(".active").attr("id"));
+    }
+    if(!$("#borrow-info").is(":hidden")){
+        showuserborrowbookinfo($(".active").attr("id"),"false");
+    }
+    if(!$("#borrow-history-info").is(":hidden")){
+        showuserborrowbookinfo($(".active").attr("id"),"true");
+    }
 });

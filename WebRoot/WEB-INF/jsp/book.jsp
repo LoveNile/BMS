@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <img src="5.jpg" alt="..." class="img-circle">
                         <span>我爱我的亲人的的的的</span>
                     </li>
-                    <li>
+                    <li class="iconuser">
                         <span><i class="icon-user"></i>个人资料</span>
                     </li>
                     <li>
@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <li class="iconthlist">
                         <span><i class="icon-th-list"></i>借阅书籍</span>
                     </li>
-                    <li>
+                    <li class="icontime">
                         <span><i class="icon-time"></i>借阅历史</span>
                     </li>
                     <li>
@@ -112,16 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <span class="return-date">归还时间</span>
                     </div>
                     <ul class="borrow-history-ul">
-                        <li>
-                            <span class="borrow-history-order">1</span>
-                            <img src="5.jpg" alt="..." class="img-rounded">
-                            <span class="book-name">大话java性能优化</span>
-                            <span class="book-autor">李白</span>
-                            <span class="book-borrow-date">2017-12-12</span>
-                            <span class="book-return-date">2017-1-1</span>
-                            <button type="button" class="btn btn-info">Info</button>
-                            <button type="button" class="btn btn-danger">Borrow</button>
-                        </li>
+                       
                     </ul>
                 </div>
                 <nav class="page-set" aria-label="Page navigation">
@@ -133,44 +124,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div id="user-info">
                 <div class="user-info-readonly">
                     <ul class="user-info-ul">
-                        <li>
-                            <span class="user-a">Avatar:</span>
-                            <img src="5.jpg" class="img-circle">
-                        </li>
-                        <li>
-                            <span class="user-a">Username:</span>
-                            <span class="user-b">我爱我的亲人打击开发商的</span>
-                        </li>
-                        <li>
-                            <span class="user-a">Phone:</span>
-                            <span class="user-b">15738869155</span>
-                        </li>
-                        <li>
-                            <span class="user-a">Email :</span>
-                            <span class="user-b">1210598758</span>
-                        </li>
-                        <li>
-                            <span class="user-a">Gender:</span>
-                            <span class="user-b">男</span>
-                        </li>
-                        <li>
-                            <span class="user-a">Birthday:</span>
-                            <span class="user-b">1995-9-17</span>
-                        </li>
-                        <li>
-                            <span class="user-a">RegisterTime:</span>
-                            <span class="user-b">2017-4-12</span>
-                        </li>
-                        <li>
-                            <span class="user-a">StudentNumber:</span>
-                            <span class="user-b">201316920206</span>
-                        </li>
-                        <li><button type="button" class="btn btn-warning">Modify</button>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".student-info">Student Info</button>
-                            
-                        </li>
                     </ul>
                 </div>
+                
             </div>
         </div>
         <div class="modal fade student-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -181,15 +137,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="modal-body">
                         <ul class="student-info-ul">
-                            <li><span>学号:</span><span>201316920206</span></li>
-                            <li><span>姓名:</span><span>Nile</span></li>
-                            <li><span>性别:</span><span>男</span></li>
-                            <li><span>电话:</span><span>115738869155</span></li>
-                            <li><span>邮箱:</span><span>1210598758@qq.com</span></li>
-                            <li><span>学院:</span><span>计算机科学与工程学院</span></li>
-                            <li><span>班级:</span><span>软件1302</span></li>
-                            <li><span>入学时间:</span><span>2013-9-1</span></li>
-                            <li><span>在校状态:</span><span>是</span></li>
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -202,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-dialog" role="document" aria-hidden="true">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Book Infomation</h4>
+                        <h4 class="modal-title" id="myModalLabelbookinfo"></h4>
                     </div>
                     <div class="modal-body">
                         <ul class="bookmodal-info-ul">
@@ -230,6 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="/BMS/static/js/bootstrap.js"></script>
     <script type="text/javascript" src="/BMS/static/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="/BMS/static/js/switch.js"></script>
+    <script type="text/javascript" src="/BMS/static/js/user.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
           var trigger = $('.hamburger'),
@@ -268,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             showbookinfo(1);
                         }
                         if(!$("#borrow-info").is(":hidden")){
-                            showuserborrowbookinfo(1);
+                            showuserborrowbookinfo(1,"false");
                         }
                     });
                     ul.mouseleave(function() {

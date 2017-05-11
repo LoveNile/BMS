@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bms.mapper.BorrowCustomMapper">
-    <select id="CountUserBorrowBooks" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="countUserBorrowBooks" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT COUNT(1) FROM borrow WHERE UserId = #{id} AND IsReturn = 0
     </select>
-    <select id="BorrowBooksAllInfo" parameterType="com.bms.vo.BorrowBooksInfoVo" resultType="com.bms.vo.BorrowCustom">
+    <select id="borrowBooksAllInfo" parameterType="com.bms.vo.BorrowBooksInfoVo" resultType="com.bms.vo.BorrowCustom">
         SELECT 
+        book.BookId,
         book.BookName,
         book.BookAuthor,
         book.BookPicPath,
         borrow.BorrowId,
         borrow.BorrowDate,
+        borrow.ReturnTime,
         borrow.BorrowDay,
         IFNULL(a.RenewDay,0) AS RenewDay
         FROM borrow
@@ -35,9 +37,10 @@
         <if test="category != null">
             AND category.CategoryName = #{category}
         </if>
+        ORDER BY borrow.BorrowDate 
         Limit #{pageSetVo.pageOffset},#{pageSetVo.pageValue}
     </select>
-    <select id="CountBorrowBooksAllInfo" parameterType="com.bms.vo.BorrowBooksInfoVo" resultType="java.lang.Integer">
+    <select id="countBorrowBooksAllInfo" parameterType="com.bms.vo.BorrowBooksInfoVo" resultType="java.lang.Integer">
         SELECT 
             COUNT(1)
         FROM borrow
@@ -62,5 +65,49 @@
         <if test="category != null">
             AND category.CategoryName = #{category}
         </if>
+    </select>
+    <select id="countUserRenewbook" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM book_renew WHERE BorrowId = #{id}
+    </select>
+    <update id="updateBorrowStatus" parameterType="java.lang.Integer">
+        UPDATE borrow SET IsRenew = 1 WHERE BorrowId = #{id}
+    </update>
+    <select id="getBorrowBooksDetailInfo" parameterType="java.lang.Integer" resultType="com.bms.vo.BorrowCustom">
+        SELECT 
+        book.BookId,
+        book.BookName,
+        book.BookAuthor,
+        book.BookPicPath,
+        borrow.*,
+        IFNULL(a.RenewDay,0) AS RenewDay
+        FROM borrow
+        LEFT JOIN book
+        ON book.BookId = borrow.BookId
+        LEFT JOIN category
+        ON category.CategoryId = book.CategoryId
+        LEFT JOIN 
+        (SELECT BorrowId,sum(RenewDay) AS RenewDay FROM book_renew GROUP BY BorrowId ) AS a 
+        ON borrow.BorrowId = a.BorrowId 
+        WHERE borrow.BorrowId = #{id}
+        AND borrow.IsReturn = 0
+    </select>
+    <select id="getHistoryDetail" parameterType="java.lang.Integer" resultType="com.bms.vo.BorrowCustom">
+         SELECT 
+        book.BookId,
+        book.BookName,
+        book.BookAuthor,
+        book.BookPicPath,
+        borrow.*,
+        IFNULL(a.RenewDay,0) AS RenewDay
+        FROM borrow
+        LEFT JOIN book
+        ON book.BookId = borrow.BookId
+        LEFT JOIN category
+        ON category.CategoryId = book.CategoryId
+        LEFT JOIN 
+        (SELECT BorrowId,sum(RenewDay) AS RenewDay FROM book_renew GROUP BY BorrowId ) AS a 
+        ON borrow.BorrowId = a.BorrowId 
+        WHERE borrow.BorrowId = #{id}
+        AND borrow.IsReturn = 1
     </select>
 </mapper>

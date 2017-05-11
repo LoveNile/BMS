@@ -13,7 +13,7 @@
     <result column="StudentClass" property="studentclass" jdbcType="VARCHAR" />
     <result column="StudentEnterYear" property="studententeryear" jdbcType="DATE" />
     <result column="StudentAdddress" property="studentadddress" jdbcType="VARCHAR" />
-    <result column="StudentStatus" property="studentstatus" jdbcType="INTEGER" />
+    <result column="StudentStatus" property="studentstatus" jdbcType="BIT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -115,7 +115,7 @@
     values (#{studentnumber,jdbcType=BIGINT}, #{studentname,jdbcType=VARCHAR}, #{studetpassword,jdbcType=VARCHAR}, 
       #{gender,jdbcType=BIT}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, 
       #{speciality,jdbcType=VARCHAR}, #{studentclass,jdbcType=VARCHAR}, #{studententeryear,jdbcType=DATE}, 
-      #{studentadddress,jdbcType=VARCHAR}, #{studentstatus,jdbcType=INTEGER})
+      #{studentadddress,jdbcType=VARCHAR}, #{studentstatus,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.bms.po.Student" >
     insert into student
@@ -192,7 +192,7 @@
         #{studentadddress,jdbcType=VARCHAR},
       </if>
       <if test="studentstatus != null" >
-        #{studentstatus,jdbcType=INTEGER},
+        #{studentstatus,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -239,7 +239,7 @@
         StudentAdddress = #{record.studentadddress,jdbcType=VARCHAR},
       </if>
       <if test="record.studentstatus != null" >
-        StudentStatus = #{record.studentstatus,jdbcType=INTEGER},
+        StudentStatus = #{record.studentstatus,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -259,7 +259,7 @@
       StudentClass = #{record.studentclass,jdbcType=VARCHAR},
       StudentEnterYear = #{record.studententeryear,jdbcType=DATE},
       StudentAdddress = #{record.studentadddress,jdbcType=VARCHAR},
-      StudentStatus = #{record.studentstatus,jdbcType=INTEGER}
+      StudentStatus = #{record.studentstatus,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -298,7 +298,7 @@
         StudentAdddress = #{studentadddress,jdbcType=VARCHAR},
       </if>
       <if test="studentstatus != null" >
-        StudentStatus = #{studentstatus,jdbcType=INTEGER},
+        StudentStatus = #{studentstatus,jdbcType=BIT},
       </if>
     </set>
     where StudentNumber = #{studentnumber,jdbcType=BIGINT}
@@ -315,7 +315,7 @@
       StudentClass = #{studentclass,jdbcType=VARCHAR},
       StudentEnterYear = #{studententeryear,jdbcType=DATE},
       StudentAdddress = #{studentadddress,jdbcType=VARCHAR},
-      StudentStatus = #{studentstatus,jdbcType=INTEGER}
+      StudentStatus = #{studentstatus,jdbcType=BIT}
     where StudentNumber = #{studentnumber,jdbcType=BIGINT}
   </update>
 </mapper>
