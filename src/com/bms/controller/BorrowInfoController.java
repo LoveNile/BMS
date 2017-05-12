@@ -19,7 +19,7 @@ import com.bms.vo.BorrowBooksInfoVo;
 import com.bms.vo.PageSetVo;
 
 @Controller
-@RequestMapping(value = "/borrow")
+@RequestMapping(value = "/book/borrow")
 public class BorrowInfoController extends BaseController {
 
     @Autowired

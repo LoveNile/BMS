@@ -46,5 +46,34 @@
   list-style: none;
   margin-top: 10px;
 }
+.user-update-password{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 520px;
+    top: 100px;
+}
+.user-update-password div {
+    margin-top: 25px;
+}
+.input-group{
+
+}
+#basic-addon1{
+    width: 120px;
+}
+#oldpassword,#newpassword,#againpassword{
+    width: 300px;
+}
+.gotoreset{
+    width: 100px;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.gotoupdatepassword{
+    width: 100px;
+    margin-top: 50px;
+    margin-left: 100px;
+}
 
 

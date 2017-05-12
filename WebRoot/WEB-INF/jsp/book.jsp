@@ -21,8 +21,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <nav id="sidebar-wrapper" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <ul class="nav sidebar-nav">
                     <li class="user-img">
-                        <img src="5.jpg" alt="..." class="img-circle">
-                        <span>我爱我的亲人的的的的</span>
+                        <img src="/BMS/img/user/${User.picpath }" class="img-circle">
+                        <span>${User.username }</span>
                     </li>
                     <li class="iconuser">
                         <span><i class="icon-user"></i>个人资料</span>
@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <li>
                         <span><i class="icon-edit"></i>修改信息</span>
                     </li>
-                    <li>
+                    <li class="iconpencil">
                         <span><i class="icon-pencil"></i>修改密码</span>
                     </li>
                     <li class="iconbook">
@@ -126,7 +126,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <ul class="user-info-ul">
                     </ul>
                 </div>
-                
+                <div class="user-update-password">
+                    <div class="input-group">
+                      <span class="input-group-addon spanoldpassword" id="basic-addon1"> 旧密码</span>
+                      <input type="password" class="form-control" id="oldpassword" placeholder="Old Password" aria-describedby="basic-addon1" onpaste="return false" > 
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon spannewpassword" id="basic-addon1"> 新密码</span>
+                      <input type="password" class="form-control" id="newpassword" placeholder="New Password" aria-describedby="basic-addon1" onpaste="return false" 
+                      data-toggle="tooltip" data-placement="left" title="密码由不能重复的数字和字母组成">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon spanagain" id="basic-addon1">再次输入</span>
+                      <input type="password" class="form-control" id="againpassword" placeholder="Input Again" aria-describedby="basic-addon1" onpaste="return false" >
+                    </div>
+                    <button type="button" class="btn btn-default gotoreset">Reset</button>
+                    <button type="button" class="btn btn-default gotoupdatepassword">Update</button>
+                </div>
             </div>
         </div>
         <div class="modal fade student-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -178,6 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="/BMS/static/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="/BMS/static/js/switch.js"></script>
     <script type="text/javascript" src="/BMS/static/js/user.js"></script>
+    <script type="text/javascript" src="/BMS/static/js/updatepassword.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
           var trigger = $('.hamburger'),

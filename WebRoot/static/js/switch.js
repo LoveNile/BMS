@@ -40,7 +40,18 @@ $(".iconuser").on("click",function(){
     $(this).addClass("changecolor");
     $("#page-content").hide();
     $("#user-info").show();
+    $(".user-info-readonly").show();
+    $(".user-update-password").hide();
     getuserinfo();
+});
+$(".iconpencil").on("click",function(){
+    clearpage();
+    removechangecolor();
+    $(this).addClass("changecolor");
+    $("#page-content").hide();
+    $("#user-info").show();
+    $(".user-info-readonly").hide();
+    $(".user-update-password").show();
 });
 function clearpage(){
     $(".starttime").val("");

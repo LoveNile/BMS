@@ -135,13 +135,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updatePassword(String password) {
+    public boolean updatePassword(String password,String userid) {
         User user = new User();
-        user.setUserid((Integer)SessionUtil.getSession("userid"));
+        user.setUserid(Integer.parseInt(userid));
         user.setPassword(MD5Util.encodeByMD5(password));
         int updateResult = userMapper.updateByPrimaryKeySelective(user);
-        SessionUtil.removeSession("userid");
-        SessionUtil.removeSession("verificationcode");
         if (updateResult == 0) {
             return false;
         }
@@ -156,6 +154,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Student getStudentInfoByNumber(long studentnumber) {
         return studentMapper.selectByPrimaryKey(studentnumber);
+    }
+
+    @Override
+    public boolean VerifyUserUpdatePassword(String password, String userid) {
+        User user = userMapper.selectByPrimaryKey(Integer.parseInt(userid));
+        if (!MD5Util.encodeByMD5(password).equals(user.getPassword())) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -50,7 +50,7 @@ function showbookinfo(currentpage){
         }
         $(".btn-danger").on("click",function(){
             overlay_show()
-            var url="/BMS/borrow/userborrow";
+            var url="/BMS/book/borrow/userborrow";
             var dataMessage = {bookid : $(this).attr("id")};
             $.post(url,dataMessage,function(data){
                 $("#ts").html(data.borrowinfo);
@@ -202,7 +202,7 @@ function showuserborrowbookinfo(currentpage,isreturn){
     $(".borrow-ul").css("background-image","url()"); 
     $(".borrow-history-ul").css("background-image","url()"); 
     $(".borrow-history-ul").empty();
-    var url = '/BMS/borrow/userborrowinfo';
+    var url = '/BMS/book/borrow/userborrowinfo';
     var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text(),isReturn:isreturn};
     $.post(url,dataMessage,function(data){
         pageSet(data.pageSetVo.currentpage,data.pageSetVo.pagecount);
@@ -239,7 +239,7 @@ function eachshowborrowbooksinfo(listBorrowCustom){
     });
     $(".bookrenew").on("click",function(){
         overlay_show()
-        var url="/BMS/borrow/renew";
+        var url="/BMS/book/borrow/renew";
         var dataMessage = {borrowid : $(this).attr("id")};
         $.post(url,dataMessage,function(data){
             $("#ts").html(data.msg);
@@ -254,7 +254,7 @@ function eachshowborrowbooksinfo(listBorrowCustom){
     });
     $(".backbook").on("click",function(){
         overlay_show()
-        var url="/BMS/borrow/backbook";
+        var url="/BMS/book/borrow/backbook";
         var dataMessage = {borrowid : $(this).attr("id")};
         $.post(url,dataMessage,function(data){
             $("#ts").html(data.msg);
@@ -268,7 +268,7 @@ function eachshowborrowbooksinfo(listBorrowCustom){
         });
     });
     $(".borrowbooksinfo").on("click",function(){
-        var url="/BMS/borrow/borrowbookdetail";
+        var url="/BMS/book/borrow/borrowbookdetail";
         var dataMessage = {borrowid : $(this).attr("id")};
         $.post(url,dataMessage,function(data){
             showdetailborrowbookinfo(data.borrowCustom);
@@ -304,21 +304,21 @@ function eachshowborrowhistorybooksinfo(listBorrowCustom){
             );
     });
     $(".btn-danger").on("click",function(){
-        overlay_show()
-        var url="/BMS/borrow/userborrow";
+        overlay_show();
+        var url="/BMS/book/borrow/userborrow";
         var dataMessage = {bookid : $(this).attr("id")};
         $.post(url,dataMessage,function(data){
             $("#ts").html(data.borrowinfo);
             borrow_show();
             if(data.borrowresult) {
-                $(".alert h2").css("background-color","#449d44")
+                $(".alert h2").css("background-color","#449d44");
             } else {
-                $(".alert h2").css("background-color","#c9302c")
+                $(".alert h2").css("background-color","#c9302c");
             }
         });
     });
     $(".borrowhistory").on("click",function(){
-        var url="/BMS/borrow/gethistorybookinfo";
+        var url="/BMS/book/borrow/gethistorybookinfo";
         var dataMessage = {borrowid : $(this).attr("id")};
         $.post(url,dataMessage,function(data){
             showdetailhistoryborrowbookinfo(data.borrowCustom);

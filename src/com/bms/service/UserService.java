@@ -13,9 +13,11 @@ public interface UserService {
 
     boolean userActivation(String id);
 
-    boolean updatePassword(String password);
+    boolean updatePassword(String password,String userid);
 
     User getUserInfo(String userid);
 
     Student getStudentInfoByNumber(long studentnumber);
+
+    boolean VerifyUserUpdatePassword(String password, String userid);
 }

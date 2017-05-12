@@ -6,7 +6,7 @@ function getuserinfo(){
         $(".user-info-ul").append(
             "<li>"+
                 "<span class='user-a'>Avatar:</span>"+
-                "<img src='5.jpg' class='img-circle'>"+
+                "<img src='/BMS/img/user/"+data.picpath+"' class='img-circle'>"+
             "</li>"+
             "<li>"+
                 "<span class='user-a'>Username:</span>"+

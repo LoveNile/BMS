@@ -107,6 +107,7 @@ public class UserLoginController extends BaseController {
     @ResponseBody
     public boolean contrastVerificationCode(@RequestParam(value = "verificationcode", defaultValue ="") String verificationcode){
         if (this.getSession("verificationcode").equals(verificationcode)) {
+            this.removeSession("verificationcode");
             return true;
         }
         return false;
@@ -115,7 +116,7 @@ public class UserLoginController extends BaseController {
     @RequestMapping(value = "/updatepassword", method = RequestMethod.POST)
     @ResponseBody
     public boolean updateUserPassword(@RequestParam(value = "password", defaultValue ="") String password) {
-        if(userService.updatePassword(password)) {
+        if(userService.updatePassword(password,this.getUserId())) {
             return true;
         }
         return false;
@@ -133,4 +134,9 @@ public class UserLoginController extends BaseController {
         return userService.getStudentInfoByNumber(this.getStudentNumber());
     }
 
+    @RequestMapping(value = "/verifypassword", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean verifyUserPassword(@RequestParam(value = "password", defaultValue ="")String password) {
+        return userService.VerifyUserUpdatePassword(password, this.getUserId());
+    }
 }
