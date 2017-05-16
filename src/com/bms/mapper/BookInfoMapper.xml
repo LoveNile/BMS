@@ -74,4 +74,58 @@
          ON book.CategoryId = category.CategoryId
          WHERE book.BookId = #{id}
      </select>
+     <insert id="insertBook" parameterType="com.bms.po.Book">
+        <selectKey keyProperty="bookid" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO `bms`.`book` (
+            `BookName`,
+            `BookAuthor`,
+            `CategoryId`,
+            `BookPress`,
+            `PublishedDate`,
+            `BookEnterTime`,
+            `BookIntroduction`,
+            `BookAddress`,
+            `BookPicPath`,
+            `DelMaker`
+        )
+        VALUES
+            (
+                #{bookname},
+                #{bookauthor},
+                #{categoryid},
+                #{bookpress},
+                #{publisheddate},
+                #{bookentertime},
+                #{bookintroduction},
+                #{bookaddress},
+                #{bookpicpath},
+                #{delmaker}
+            )
+     </insert>
+     <select id="adminBookInfo" resultType="com.bms.vo.BookCustom">
+        SELECT 
+            book.BookId,
+            book.BookName,
+            book.BookAuthor,
+            book.CategoryId,
+            book.BookPress,
+            book.PublishedDate,
+            book.BookEnterTime,
+            book.BookIntroduction,
+            book.BookAddress,
+            book.BookPicPath,
+            IFNULL(book_stock.BookNumber,0) AS BookNumber,
+            category.CategoryName
+        FROM book
+        LEFT JOIN book_stock
+        ON book.BookId = book_stock.BookId
+        LEFT JOIN category
+        ON book.CategoryId = category.CategoryId
+        WHERE book.DelMaker = 0 
+     </select>
+     <update id="deleteOneBook" parameterType="java.lang.Integer">
+        UPDATE book SET DelMaker = 1 WHERE BookId = #{id}
+     </update>
 </mapper>

@@ -13,7 +13,7 @@ public class BorrowBooksInfoVo {
     private String keyWord;
     private String category;
     private int userid;
-    private boolean isreturn;
+    private Integer isreturn;
 
     public List<BorrowCustom> getListBorrowCustom() {
         return listBorrowCustom;
@@ -63,11 +63,12 @@ public class BorrowBooksInfoVo {
     public void setUserid(int userid) {
         this.userid = userid;
     }
-    public boolean isIsreturn() {
+    public Integer getIsreturn() {
         return isreturn;
     }
-    public void setIsreturn(boolean isreturn) {
+    public void setIsreturn(Integer isreturn) {
         this.isreturn = isreturn;
     }
+
 
 }

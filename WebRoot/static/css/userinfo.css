@@ -75,5 +75,29 @@
     margin-top: 50px;
     margin-left: 100px;
 }
-
-
+.update-person-info{
+    position: absolute;
+    left: 520px;
+    top: 10%;
+}
+.update-person-info img{
+    text-align: center;
+    margin-left: 199px;
+}
+.update-person-info div{
+    margin-top: 20px
+}
+.input-group input{
+    width: 300px;
+}
+#username,#studentnumber,#phone,#useremail,#gender,#birthday{
+    width: 300px
+}
+.update-person-info button{
+    width :100px;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+input[type="file"] {
+    display: none;
+}

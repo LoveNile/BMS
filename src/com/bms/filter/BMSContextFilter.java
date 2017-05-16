@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bms.BMSContext;
 import com.bms.Constants;
+import com.bms.po.Admin;
 import com.bms.po.User;
 
 public class BMSContextFilter implements Filter {
@@ -43,7 +44,9 @@ public class BMSContextFilter implements Filter {
             bmsContext.addObject(Constants.BMS_CONTEXT_SESSION, session);
         }
         User user = (User) session.getAttribute(Constants.BMS_CONTEXT_USER);
+        Admin admin = (Admin)session.getAttribute(Constants.BMS_ADMIN);
         bmsContext.addObject(Constants.BMS_CONTEXT_USER, user);
+        bmsContext.addObject(Constants.BMS_ADMIN, admin);
         try {
             chain.doFilter(req, res);
         } finally {

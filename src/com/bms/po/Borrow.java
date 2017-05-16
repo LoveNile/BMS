@@ -13,11 +13,15 @@ public class Borrow {
 
     private Integer borrowday;
 
-    private Boolean isreturn;
+    private Integer isreturn;
 
     private Date returntime;
 
     private Boolean isrenew;
+
+    private Integer allowborrow;
+
+    private Integer allowback;
 
     public Integer getBorrowid() {
         return borrowid;
@@ -59,11 +63,11 @@ public class Borrow {
         this.borrowday = borrowday;
     }
 
-    public Boolean getIsreturn() {
+    public Integer getIsreturn() {
         return isreturn;
     }
 
-    public void setIsreturn(Boolean isreturn) {
+    public void setIsreturn(Integer isreturn) {
         this.isreturn = isreturn;
     }
 
@@ -81,5 +85,21 @@ public class Borrow {
 
     public void setIsrenew(Boolean isrenew) {
         this.isrenew = isrenew;
+    }
+
+    public Integer getAllowborrow() {
+        return allowborrow;
+    }
+
+    public void setAllowborrow(Integer allowborrow) {
+        this.allowborrow = allowborrow;
+    }
+
+    public Integer getAllowback() {
+        return allowback;
+    }
+
+    public void setAllowback(Integer allowback) {
+        this.allowback = allowback;
     }
 }

@@ -21,13 +21,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <nav id="sidebar-wrapper" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <ul class="nav sidebar-nav">
                     <li class="user-img">
-                        <img src="/BMS/img/user/${User.picpath }" class="img-circle">
+                        <img src="/BMS/img/user/${User.picpath }" class="img-circle navimg">
                         <span>${User.username }</span>
                     </li>
                     <li class="iconuser">
                         <span><i class="icon-user"></i>个人资料</span>
                     </li>
-                    <li>
+                    <li class = "iconedit">
                         <span><i class="icon-edit"></i>修改信息</span>
                     </li>
                     <li class="iconpencil">
@@ -143,6 +143,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <button type="button" class="btn btn-default gotoreset">Reset</button>
                     <button type="button" class="btn btn-default gotoupdatepassword">Update</button>
                 </div>
+                <div class="update-person-info">
+                    <input type="file" class = "imgfilepath" id = "file" name = "file"/>
+	                <img src="/BMS/img/user/${User.picpath }" class="user-info-img img-circle editimg" >
+	                <div class="input-group">
+	                      <span class="input-group-addon spanusername" id="basic-addon1">用户名*</span>
+	                      <input type="text" class="form-control" id="username" placeholder="Username" aria-describedby="basic-addon1"
+	                      data-toggle="tooltip" data-placement="left" title="不能有特殊字符">
+	                </div>
+	                <div class="input-group">
+	                  <span class="input-group-addon" id="basic-addon1">学号*</span>
+	                  <input type="text" class="form-control" id="studentnumber" placeholder="StudentNumber" aria-describedby="basic-addon1"
+	                  data-toggle="tooltip" data-placement="left" title="每个学号绑定一个用户 ">
+	                </div>
+	                <div class="input-group">
+	                  <span class="input-group-addon" id="basic-addon1">电话</span>
+	                  <input type="text" class="form-control" id="phone" placeholder="Phone" aria-describedby="basic-addon1">
+	                </div>
+	                <div class="input-group">
+	                  <span class="input-group-addon" id="basic-addon1">邮箱*</span>
+	                  <input type="text" class="form-control" id="useremail" placeholder="Email" aria-describedby="basic-addon1"
+	                  data-toggle="tooltip" data-placement="left" title="每个邮箱绑定一个用户">
+	                </div>
+	                <div class="input-group">
+	                  <span class="input-group-addon" id="basic-addon1">性别</span>
+	                  <input type="text" class="form-control" id="gender" placeholder="Gender" aria-describedby="basic-addon1">
+	                </div>
+	                <div class="input-group input-append">
+	                  <span class="input-group-addon" id="basic-addon1">生日</span>
+	                  <input type="text" class="form-control" id="birthday" placeholder="Birthday" aria-describedby="basic-addon1" readonly>
+	                </div>
+	                <button type="button" class="btn btn-default">Reset</button>
+	                <button type="button" class="btn btn-success editusersuccess">Update</button>
+	            </div>
             </div>
         </div>
         <div class="modal fade student-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -192,9 +225,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="/BMS/static/js/book.js"></script>
     <script type="text/javascript" src="/BMS/static/js/bootstrap.js"></script>
     <script type="text/javascript" src="/BMS/static/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="/BMS/static/js/switch.js"></script>
+    <script type="text/javascript" src="/BMS/static/js/switch.js?121"></script>
     <script type="text/javascript" src="/BMS/static/js/user.js"></script>
     <script type="text/javascript" src="/BMS/static/js/updatepassword.js"></script>
+    <script type="text/javascript" src="/BMS/static/js/edituserinfo.js"></script>
+    <script type="text/javascript" src="/BMS/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
           var trigger = $('.hamburger'),
@@ -252,6 +287,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             autoclose:true
           });
         $(".data-select-second").datetimepicker({
+            minView: "month",
+            format: "yyyy-mm-dd",
+            todayBtn : 1,
+            todayHighlight:true,
+            autoclose:true
+          });
+        $("#birthday").datetimepicker({
             minView: "month",
             format: "yyyy-mm-dd",
             todayBtn : 1,

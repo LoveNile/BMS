@@ -26,12 +26,15 @@ public class Constants {
 
 
     //借阅信息
-    public static final String BMS_BORROW_NORETURN = "已经借阅此图书，未归还！";
+    public static final String BMS_BORROW_NORETURN = "已经借阅或者请求借阅此图书！";
     public static final String BMS_BORROW_NOSTOCK = "此图书已经被借阅完！";
     public static final String BMS_BORROW_BACKGROUNDERROE = "借阅失败，请联系管理员！";
     public static final String BMS_BORROW_MOREBOOKS = "借阅失败，借阅图书数量超出！";
-    public static final String BMS_BORROW_SUCCESS = "借阅成功";
+    public static final String BMS_BORROW_SUCCESS = "请求成功";
     public static final String BMS_BORROW_NOSTUDENTNUMBER = "请完善信息，再借阅书籍！";
     public static final String BMS_BORROW_STUDENT_ERROR = "学生已离校！";
+
+    //admin
+    public static final String BMS_ADMIN = "Admin";
 }
 

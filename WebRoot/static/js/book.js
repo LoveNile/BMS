@@ -196,6 +196,11 @@ function formatedate(todate) {
     return datetime;
 };
 function showuserborrowbookinfo(currentpage,isreturn){
+    var hasAuth = isreturn === 'true';
+    var status = 3
+    if(hasAuth){
+        status = 1
+    }
     $(".borrow-ul").empty();
     $(".category-ul").empty();
     $(".pagination").empty();
@@ -203,11 +208,10 @@ function showuserborrowbookinfo(currentpage,isreturn){
     $(".borrow-history-ul").css("background-image","url()"); 
     $(".borrow-history-ul").empty();
     var url = '/BMS/book/borrow/userborrowinfo';
-    var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text(),isReturn:isreturn};
+    var dataMessage = {current : currentpage,startTime : $(".starttime").val(),endTime: $(".endtime").val(),keyWord: $(".keyword").val(),category:$(".category-span").text(),isReturn:status};
     $.post(url,dataMessage,function(data){
         pageSet(data.pageSetVo.currentpage,data.pageSetVo.pagecount);
         categoryset(data.listCategoryCustom);
-        var hasAuth = isreturn === 'true';
         if ($.isEmptyObject(data.listBorrowCustom)) {
             $(".borrow-ul").css("background-image","url(/BMS/static/img/jocker.png)"); 
             $(".borrow-history-ul").css("background-image","url(/BMS/static/img/jocker.png)"); 
@@ -253,7 +257,7 @@ function eachshowborrowbooksinfo(listBorrowCustom){
         });
     });
     $(".backbook").on("click",function(){
-        overlay_show()
+        overlay_show();
         var url="/BMS/book/borrow/backbook";
         var dataMessage = {borrowid : $(this).attr("id")};
         $.post(url,dataMessage,function(data){

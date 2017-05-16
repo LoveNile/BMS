@@ -42,6 +42,7 @@ $(".iconuser").on("click",function(){
     $("#user-info").show();
     $(".user-info-readonly").show();
     $(".user-update-password").hide();
+    $(".update-person-info").hide();
     getuserinfo();
 });
 $(".iconpencil").on("click",function(){
@@ -52,6 +53,17 @@ $(".iconpencil").on("click",function(){
     $("#user-info").show();
     $(".user-info-readonly").hide();
     $(".user-update-password").show();
+    $(".update-person-info").hide();
+});
+$(".iconedit").on("click",function(){
+    clearpage();
+    removechangecolor();
+    $(this).addClass("changecolor");
+    $("#page-content").hide();
+    $("#user-info").show();
+    $(".user-info-readonly").hide();
+    $(".user-update-password").hide();
+    $(".update-person-info").show();
 });
 function clearpage(){
     $(".starttime").val("");

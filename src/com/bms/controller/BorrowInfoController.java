@@ -67,7 +67,7 @@ public class BorrowInfoController extends BaseController {
             borrowBooksInfoVo.setCategory(category);
         }
         borrowBooksInfoVo.setUserid(Integer.parseInt(this.getUserId()));
-        borrowBooksInfoVo.setIsreturn(Boolean.parseBoolean(isReturn));
+        borrowBooksInfoVo.setIsreturn(Integer.parseInt(isReturn));
         borrowService.getUserBorrowBooksInfo(borrowBooksInfoVo);
         return borrowBooksInfoVo;
     }

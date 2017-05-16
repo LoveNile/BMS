@@ -14,4 +14,6 @@ public interface BorrowCustomMapper {
     int updateBorrowStatus(int borrowid);
     BorrowCustom getBorrowBooksDetailInfo(int borrowid);
     BorrowCustom getHistoryDetail(int borrowid);
+    List<BorrowCustom> selectBorrowStatus(int status);
+    List<BorrowCustom> selectUserBackBookAsk(int status);
 }

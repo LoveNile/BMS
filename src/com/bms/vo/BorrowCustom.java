@@ -9,7 +9,32 @@ public class BorrowCustom extends Borrow {
     private String bookpicpath;
     private Integer renewday;
     private int countrenewday;
+    private String categoryname;
+    private String username;
+    private String bookaddress;
+    private String borrowdatalocal;
 
+    public String getBorrowdatalocal() {
+        return this.getBorrowdate().toLocaleString();
+    }
+    public String getBookaddress() {
+        return bookaddress;
+    }
+    public void setBookaddress(String bookaddress) {
+        this.bookaddress = bookaddress;
+    }
+    public String getCategoryname() {
+        return categoryname;
+    }
+    public void setCategoryname(String categoryname) {
+        this.categoryname = categoryname;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public int getCountrenewday() {
         return countrenewday;
     }

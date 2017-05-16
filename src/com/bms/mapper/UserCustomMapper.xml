@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bms.mapper.UserCustomMapper">
+    <select id="verifyUsername" parameterType="com.bms.po.User" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `user` WHERE UserName = #{username} AND UserId NOT in(#{userid})
+    </select>
+    <select id="verifyStudent" parameterType="com.bms.po.User" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `user` WHERE StudentNumber = #{studentnumber} AND UserId NOT in(#{userid})
+    </select>
+     <select id="verifyUserEmail" parameterType="com.bms.po.User" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `user` WHERE Email = #{email} AND UserId NOT in(#{userid})
+    </select>
+    <select id="getAllUser" resultType="com.bms.po.User">
+        SELECT `user`.UserId,UserName,`user`.Gender,`user`.Phone,`user`.Email,`user`.PicPath,`user`.StudentNumber,`user`.Status FROM `user` WHERE `DelMaker` = 0
+    </select>
+</mapper>

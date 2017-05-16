@@ -415,52 +415,52 @@ public class BorrowExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnEqualTo(Boolean value) {
+        public Criteria andIsreturnEqualTo(Integer value) {
             addCriterion("IsReturn =", value, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnNotEqualTo(Boolean value) {
+        public Criteria andIsreturnNotEqualTo(Integer value) {
             addCriterion("IsReturn <>", value, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnGreaterThan(Boolean value) {
+        public Criteria andIsreturnGreaterThan(Integer value) {
             addCriterion("IsReturn >", value, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andIsreturnGreaterThanOrEqualTo(Integer value) {
             addCriterion("IsReturn >=", value, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnLessThan(Boolean value) {
+        public Criteria andIsreturnLessThan(Integer value) {
             addCriterion("IsReturn <", value, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnLessThanOrEqualTo(Boolean value) {
+        public Criteria andIsreturnLessThanOrEqualTo(Integer value) {
             addCriterion("IsReturn <=", value, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnIn(List<Boolean> values) {
+        public Criteria andIsreturnIn(List<Integer> values) {
             addCriterion("IsReturn in", values, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnNotIn(List<Boolean> values) {
+        public Criteria andIsreturnNotIn(List<Integer> values) {
             addCriterion("IsReturn not in", values, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnBetween(Boolean value1, Boolean value2) {
+        public Criteria andIsreturnBetween(Integer value1, Integer value2) {
             addCriterion("IsReturn between", value1, value2, "isreturn");
             return (Criteria) this;
         }
 
-        public Criteria andIsreturnNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andIsreturnNotBetween(Integer value1, Integer value2) {
             addCriterion("IsReturn not between", value1, value2, "isreturn");
             return (Criteria) this;
         }
@@ -582,6 +582,126 @@ public class BorrowExample {
 
         public Criteria andIsrenewNotBetween(Boolean value1, Boolean value2) {
             addCriterion("IsRenew not between", value1, value2, "isrenew");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowIsNull() {
+            addCriterion("AllowBorrow is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowIsNotNull() {
+            addCriterion("AllowBorrow is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowEqualTo(Integer value) {
+            addCriterion("AllowBorrow =", value, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowNotEqualTo(Integer value) {
+            addCriterion("AllowBorrow <>", value, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowGreaterThan(Integer value) {
+            addCriterion("AllowBorrow >", value, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowGreaterThanOrEqualTo(Integer value) {
+            addCriterion("AllowBorrow >=", value, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowLessThan(Integer value) {
+            addCriterion("AllowBorrow <", value, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowLessThanOrEqualTo(Integer value) {
+            addCriterion("AllowBorrow <=", value, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowIn(List<Integer> values) {
+            addCriterion("AllowBorrow in", values, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowNotIn(List<Integer> values) {
+            addCriterion("AllowBorrow not in", values, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowBetween(Integer value1, Integer value2) {
+            addCriterion("AllowBorrow between", value1, value2, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowborrowNotBetween(Integer value1, Integer value2) {
+            addCriterion("AllowBorrow not between", value1, value2, "allowborrow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackIsNull() {
+            addCriterion("AllowBack is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackIsNotNull() {
+            addCriterion("AllowBack is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackEqualTo(Integer value) {
+            addCriterion("AllowBack =", value, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackNotEqualTo(Integer value) {
+            addCriterion("AllowBack <>", value, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackGreaterThan(Integer value) {
+            addCriterion("AllowBack >", value, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackGreaterThanOrEqualTo(Integer value) {
+            addCriterion("AllowBack >=", value, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackLessThan(Integer value) {
+            addCriterion("AllowBack <", value, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackLessThanOrEqualTo(Integer value) {
+            addCriterion("AllowBack <=", value, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackIn(List<Integer> values) {
+            addCriterion("AllowBack in", values, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackNotIn(List<Integer> values) {
+            addCriterion("AllowBack not in", values, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackBetween(Integer value1, Integer value2) {
+            addCriterion("AllowBack between", value1, value2, "allowback");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllowbackNotBetween(Integer value1, Integer value2) {
+            addCriterion("AllowBack not between", value1, value2, "allowback");
             return (Criteria) this;
         }
     }

@@ -7,9 +7,11 @@
     <result column="UserId" property="userid" jdbcType="INTEGER" />
     <result column="BorrowDate" property="borrowdate" jdbcType="TIMESTAMP" />
     <result column="BorrowDay" property="borrowday" jdbcType="INTEGER" />
-    <result column="IsReturn" property="isreturn" jdbcType="BIT" />
+    <result column="IsReturn" property="isreturn" jdbcType="INTEGER" />
     <result column="ReturnTime" property="returntime" jdbcType="TIMESTAMP" />
     <result column="IsRenew" property="isrenew" jdbcType="BIT" />
+    <result column="AllowBorrow" property="allowborrow" jdbcType="INTEGER" />
+    <result column="AllowBack" property="allowback" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    BorrowId, BookId, UserId, BorrowDate, BorrowDay, IsReturn, ReturnTime, IsRenew
+    BorrowId, BookId, UserId, BorrowDate, BorrowDay, IsReturn, ReturnTime, IsRenew, AllowBorrow, 
+    AllowBack
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bms.po.BorrowExample" >
     select
@@ -105,10 +108,12 @@
   <insert id="insert" parameterType="com.bms.po.Borrow" >
     insert into borrow (BorrowId, BookId, UserId, 
       BorrowDate, BorrowDay, IsReturn, 
-      ReturnTime, IsRenew)
+      ReturnTime, IsRenew, AllowBorrow, 
+      AllowBack)
     values (#{borrowid,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
-      #{borrowdate,jdbcType=TIMESTAMP}, #{borrowday,jdbcType=INTEGER}, #{isreturn,jdbcType=BIT}, 
-      #{returntime,jdbcType=TIMESTAMP}, #{isrenew,jdbcType=BIT})
+      #{borrowdate,jdbcType=TIMESTAMP}, #{borrowday,jdbcType=INTEGER}, #{isreturn,jdbcType=INTEGER}, 
+      #{returntime,jdbcType=TIMESTAMP}, #{isrenew,jdbcType=BIT}, #{allowborrow,jdbcType=INTEGER}, 
+      #{allowback,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bms.po.Borrow" >
     insert into borrow
@@ -137,6 +142,12 @@
       <if test="isrenew != null" >
         IsRenew,
       </if>
+      <if test="allowborrow != null" >
+        AllowBorrow,
+      </if>
+      <if test="allowback != null" >
+        AllowBack,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="borrowid != null" >
@@ -155,13 +166,19 @@
         #{borrowday,jdbcType=INTEGER},
       </if>
       <if test="isreturn != null" >
-        #{isreturn,jdbcType=BIT},
+        #{isreturn,jdbcType=INTEGER},
       </if>
       <if test="returntime != null" >
         #{returntime,jdbcType=TIMESTAMP},
       </if>
       <if test="isrenew != null" >
         #{isrenew,jdbcType=BIT},
+      </if>
+      <if test="allowborrow != null" >
+        #{allowborrow,jdbcType=INTEGER},
+      </if>
+      <if test="allowback != null" >
+        #{allowback,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -190,13 +207,19 @@
         BorrowDay = #{record.borrowday,jdbcType=INTEGER},
       </if>
       <if test="record.isreturn != null" >
-        IsReturn = #{record.isreturn,jdbcType=BIT},
+        IsReturn = #{record.isreturn,jdbcType=INTEGER},
       </if>
       <if test="record.returntime != null" >
         ReturnTime = #{record.returntime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.isrenew != null" >
         IsRenew = #{record.isrenew,jdbcType=BIT},
+      </if>
+      <if test="record.allowborrow != null" >
+        AllowBorrow = #{record.allowborrow,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowback != null" >
+        AllowBack = #{record.allowback,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -210,9 +233,11 @@
       UserId = #{record.userid,jdbcType=INTEGER},
       BorrowDate = #{record.borrowdate,jdbcType=TIMESTAMP},
       BorrowDay = #{record.borrowday,jdbcType=INTEGER},
-      IsReturn = #{record.isreturn,jdbcType=BIT},
+      IsReturn = #{record.isreturn,jdbcType=INTEGER},
       ReturnTime = #{record.returntime,jdbcType=TIMESTAMP},
-      IsRenew = #{record.isrenew,jdbcType=BIT}
+      IsRenew = #{record.isrenew,jdbcType=BIT},
+      AllowBorrow = #{record.allowborrow,jdbcType=INTEGER},
+      AllowBack = #{record.allowback,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,13 +258,19 @@
         BorrowDay = #{borrowday,jdbcType=INTEGER},
       </if>
       <if test="isreturn != null" >
-        IsReturn = #{isreturn,jdbcType=BIT},
+        IsReturn = #{isreturn,jdbcType=INTEGER},
       </if>
       <if test="returntime != null" >
         ReturnTime = #{returntime,jdbcType=TIMESTAMP},
       </if>
       <if test="isrenew != null" >
         IsRenew = #{isrenew,jdbcType=BIT},
+      </if>
+      <if test="allowborrow != null" >
+        AllowBorrow = #{allowborrow,jdbcType=INTEGER},
+      </if>
+      <if test="allowback != null" >
+        AllowBack = #{allowback,jdbcType=INTEGER},
       </if>
     </set>
     where BorrowId = #{borrowid,jdbcType=INTEGER}
@@ -250,9 +281,11 @@
       UserId = #{userid,jdbcType=INTEGER},
       BorrowDate = #{borrowdate,jdbcType=TIMESTAMP},
       BorrowDay = #{borrowday,jdbcType=INTEGER},
-      IsReturn = #{isreturn,jdbcType=BIT},
+      IsReturn = #{isreturn,jdbcType=INTEGER},
       ReturnTime = #{returntime,jdbcType=TIMESTAMP},
-      IsRenew = #{isrenew,jdbcType=BIT}
+      IsRenew = #{isrenew,jdbcType=BIT},
+      AllowBorrow = #{allowborrow,jdbcType=INTEGER},
+      AllowBack = #{allowback,jdbcType=INTEGER}
     where BorrowId = #{borrowid,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,2 +1,7 @@
 eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/jsp/admin.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/adminpersonal.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/management.jsp=UTF-8
+encoding//WebRoot/static/css/matrix-style.css=UTF-8
+encoding//conf/borrow.properties=UTF-8
 encoding/<project>=UTF-8

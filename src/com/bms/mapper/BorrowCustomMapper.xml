@@ -6,15 +6,15 @@
     </select>
     <select id="borrowBooksAllInfo" parameterType="com.bms.vo.BorrowBooksInfoVo" resultType="com.bms.vo.BorrowCustom">
         SELECT 
-        book.BookId,
-        book.BookName,
-        book.BookAuthor,
-        book.BookPicPath,
-        borrow.BorrowId,
-        borrow.BorrowDate,
-        borrow.ReturnTime,
-        borrow.BorrowDay,
-        IFNULL(a.RenewDay,0) AS RenewDay
+           book.BookId,
+           book.BookName,
+           book.BookAuthor,
+           book.BookPicPath,
+           borrow.BorrowId,
+           borrow.BorrowDate,
+           borrow.ReturnTime,
+           borrow.BorrowDay,
+           IFNULL(a.RenewDay,0) AS RenewDay
         FROM borrow
         LEFT JOIN book
         ON book.BookId = borrow.BookId
@@ -109,5 +109,47 @@
         ON borrow.BorrowId = a.BorrowId 
         WHERE borrow.BorrowId = #{id}
         AND borrow.IsReturn = 1
+    </select>
+    <select id="selectBorrowStatus" resultType="com.bms.vo.BorrowCustom" parameterType="java.lang.Integer">
+          SELECT 
+             book.BookId,
+             book.BookName,
+             book.BookAuthor,
+             book.BookPicPath,
+             book.BookAddress,
+             borrow.*,
+             category.CategoryName,
+             `user`.UserName
+             FROM borrow
+             LEFT JOIN book
+             ON book.BookId = borrow.BookId
+             LEFT JOIN category
+             ON category.CategoryId = book.CategoryId
+             LEFT JOIN `user`
+             ON borrow.UserId = `user`.UserId
+             WHERE borrow.IsReturn = #{id}
+    </select>
+    <select id="selectUserBackBookAsk" resultType="com.bms.vo.BorrowCustom" parameterType="java.lang.Integer">
+         SELECT 
+        book.BookId,
+        book.BookName,
+        book.BookAuthor,
+        book.BookPicPath,
+        borrow.*,
+        IFNULL(a.RenewDay,0) AS RenewDay,
+        IFNULL(a.countrenewday,0) AS countrenewday,
+        `user`.UserName,
+        category.CategoryName
+        FROM borrow
+        LEFT JOIN book
+        ON book.BookId = borrow.BookId
+        LEFT JOIN category
+        ON category.CategoryId = book.CategoryId
+        LEFT JOIN 
+        (SELECT BorrowId,sum(RenewDay) AS RenewDay , COUNT(RenewDay) as countrenewday FROM book_renew GROUP BY BorrowId ) AS a 
+        ON borrow.BorrowId = a.BorrowId 
+        LEFT JOIN `user`
+         ON borrow.UserId = `user`.UserId
+        WHERE borrow.IsReturn = #{id}
     </select>
 </mapper>

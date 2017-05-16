@@ -54,7 +54,7 @@ public class BorrowServiceImpl implements BorrowService {
                 int borrowbookid = Integer.parseInt(bookid);
                 criteria.andBookidEqualTo(borrowbookid);
                 criteria.andUseridEqualTo(borrowuserid);
-                criteria.andIsreturnEqualTo(false);
+                criteria.andIsreturnNotEqualTo(1);
                 List<Borrow> borrows = borrowMapper.selectByExample(borrowExample);
                 if (!borrows.isEmpty()) {
                     throw new BorrowBookException(Constants.BMS_BORROW_NORETURN);
@@ -68,7 +68,7 @@ public class BorrowServiceImpl implements BorrowService {
                 borrow.setUserid(borrowuserid);
                 borrow.setBorrowdate(DateUtil.getNowDate());
                 borrow.setBorrowday(14);
-                borrow.setIsreturn(false);
+                borrow.setIsreturn(2);
                 borrow.setIsrenew(false);
                 int borrowResult = borrowMapper.insert(borrow);
                 int updateStock = bookStockCustomMapper.ChangebookStockById(borrowbookid);
@@ -122,7 +122,7 @@ public class BorrowServiceImpl implements BorrowService {
         int backbook = Integer.parseInt(borrowid);
         Borrow borrowinfo = borrowMapper.selectByPrimaryKey(backbook);
         borrowinfo.setReturntime(DateUtil.getNowDate());
-        borrowinfo.setIsreturn(true);
+        borrowinfo.setIsreturn(0);
         int result = borrowMapper.updateByPrimaryKey(borrowinfo);
         if (result == 0) {
             throw new BorrowBookException("还书失败，请联系管理员！");

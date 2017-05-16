@@ -31,10 +31,8 @@ public class UserLoginController extends BaseController {
     private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView userLogin() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/login");
-        return modelAndView;
+    public String userLogin() {
+        return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

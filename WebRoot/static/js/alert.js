@@ -30,3 +30,8 @@ $(".btnborrowalert").on("click",function(){
         showuserborrowbookinfo($(".active").attr("id"),"true");
     }
 });
+function errormsg(msg){
+    borrow_show();
+    $(".alert h2").css("background-color","#c9302c");
+    $("#ts").html(msg)
+}
