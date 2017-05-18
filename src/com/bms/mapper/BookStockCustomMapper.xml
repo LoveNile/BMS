@@ -4,4 +4,7 @@
     <update id="ChangebookStockById" parameterType="java.lang.Integer" >
         UPDATE book_stock set BookNumber = BookNumber - 1 ,UpdateTime = NOW() where BookId = #{id}
     </update>
+    <update id="ChangeAddbookStockById" parameterType="java.lang.Integer" >
+        UPDATE book_stock set BookNumber = BookNumber + 1 ,UpdateTime = NOW() where BookId = (SELECT BookId from borrow where borrow.BorrowId = #{id})
+    </update>
 </mapper>

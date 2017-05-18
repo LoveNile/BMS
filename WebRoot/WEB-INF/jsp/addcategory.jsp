@@ -57,30 +57,18 @@
 <div id="content">
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span6">
-      <div class="widget-box" style="left: 280px;">
+      <div class="row-fluid">
+        <div class="span12">
           <div class="widget-box">
             <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-              <h5>更改密码</h5>
+              <h5>添加分类</h5>
             </div>
             <div class="widget-content nopadding">
-              <form class="form-horizontal" method="post" action="updateadminpassword" name="password_validate" id="password_validate" novalidate="novalidate">
+              <form class="form-horizontal" method="post" action="addcategory" name="password_validate" id="category" novalidate="novalidate">
                 <div class="control-group">
-                  <label class="control-label">旧密码</label>
+                  <label class="control-label">添加图书类别</label>
                   <div class="controls">
-                    <input type="password" name="oldpassword" id="pwd" />
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">密码</label>
-                  <div class="controls">
-                    <input type="password" name="newpassword" id="newpassword" />
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label">再次输入</label>
-                  <div class="controls">
-                    <input type="password" name="retrypassword" id="pwd2" />
+                    <input type="text" name="categoryname" id="categoryname" />
                   </div>
                 </div>
                 <div class="form-actions">

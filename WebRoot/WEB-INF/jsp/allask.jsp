@@ -59,6 +59,7 @@
           </div>
         </div>
      </div>
+      <div class="overlay "></div>
 </body>
     <script src="/BMS/static/js/jquery.min.js"></script> 
     <script src="/BMS/static/js/jquery.ui.custom.js"></script> 
@@ -78,7 +79,7 @@
         $.post(url,dataMessage,function(data){
             overlay_hide();
             if(data){
-                location.href = "http://localhost:8080/BMS/adminaction/allask"
+                location.href = "http://localhost:8080/BMS/adminaction/viewbookaskborrow"
             }
         });
     });

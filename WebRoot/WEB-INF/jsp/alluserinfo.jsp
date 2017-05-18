@@ -103,40 +103,46 @@
     <script type="text/javascript">
     $(".student").on('click',function(){
         $(".student-info-ul").empty();
-        var url="/BMS/adminaction/viewstudentinfo";
-        var dataMessage = {studentnumber :$(this).attr("id")};
-        $.post(url,dataMessage,function(data){
-            $(".student-info-ul").append(
-                    "<li><span>学号:</span><span>"+data.studentnumber+"</span></li>"+
-                    "<li><span>姓名:</span><span>"+data.studentname+"</span></li>"
-            );
-            if(data.gender){
+        if($(this).attr("id")!= null && $(this).attr("id") != '') {
+            var url="/BMS/adminaction/viewstudentinfo";
+            var dataMessage = {studentnumber :$(this).attr("id")};
+            $.post(url,dataMessage,function(data){
                 $(".student-info-ul").append(
-                        "<li><span>性别:</span><span>男</span></li>"
-                        );
-            } else {
+                        "<li><span>学号:</span><span>"+data.studentnumber+"</span></li>"+
+                        "<li><span>姓名:</span><span>"+data.studentname+"</span></li>"
+                );
+                if(data.gender){
+                    $(".student-info-ul").append(
+                            "<li><span>性别:</span><span>男</span></li>"
+                            );
+                } else {
+                    $(".student-info-ul").append(
+                            "<li><span>性别:</span><span>女</span></li>"
+                            );
+                }
                 $(".student-info-ul").append(
-                        "<li><span>性别:</span><span>女</span></li>"
+                        "<li><span>电话:</span><span>"+data.phone+"</span></li>"+
+                        "<li><span>邮箱:</span><span>"+data.email+"</span></li>"+
+                        "<li><span>学院:</span><span>"+data.speciality+"</span></li>"+
+                        "<li><span>班级:</span><span>"+data.studentclass+"</span></li>"+
+                        "<li><span>入学时间:</span><span>"+formatedate(data.studententeryear)+"</span></li>"
                         );
-            }
-            $(".student-info-ul").append(
-                    "<li><span>电话:</span><span>"+data.phone+"</span></li>"+
-                    "<li><span>邮箱:</span><span>"+data.email+"</span></li>"+
-                    "<li><span>学院:</span><span>"+data.speciality+"</span></li>"+
-                    "<li><span>班级:</span><span>"+data.studentclass+"</span></li>"+
-                    "<li><span>入学时间:</span><span>"+formatedate(data.studententeryear)+"</span></li>"
-                    );
-            if(data.studentstatus){
-                $(".student-info-ul").append(
-                        "<li><span>在校状态:</span><span>在校</span></li>"
-                        );
-            } else {
-                $(".student-info-ul").append(
-                        "<li><span>在校状态:</span><span>离校</span></li>"
-                        );
-            }
+                if(data.studentstatus){
+                    $(".student-info-ul").append(
+                            "<li><span>在校状态:</span><span>在校</span></li>"
+                            );
+                } else {
+                    $(".student-info-ul").append(
+                            "<li><span>在校状态:</span><span>离校</span></li>"
+                            );
+                }
             
-        });
+            });
+        } else {
+            $(".student-info-ul").append(
+                    "<li><span>未绑定学号</span></li>"
+                    );
+        }
     });
     $(".deluser").on('click',function(){
         overlay_show();

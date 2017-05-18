@@ -57,30 +57,69 @@
 <div id="content">
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span6">
-      <div class="widget-box" style="left: 280px;">
+      <div class="row-fluid">
+        <div class="span12">
           <div class="widget-box">
-            <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-              <h5>更改密码</h5>
-            </div>
             <div class="widget-content nopadding">
-              <form class="form-horizontal" method="post" action="updateadminpassword" name="password_validate" id="password_validate" novalidate="novalidate">
+              <form class="form-horizontal" method="post" action="editbook" id="editbook" novalidate="novalidate" enctype="multipart/form-data">
                 <div class="control-group">
-                  <label class="control-label">旧密码</label>
+                  <label class="control-label">图书图片</label>
                   <div class="controls">
-                    <input type="password" name="oldpassword" id="pwd" />
+                    <input type="text" name="bookid" id="bookid" value="${book.bookid }" style="display:none"/>
+                    <input type="file" name="bookimg" id="bookimg" style="display:none" value=""/>
+                    <img src="/BMS/pic/${book.bookpicpath }" class="img-rounded editimg" style="With:50px;height:50px">
                   </div>
                 </div>
                 <div class="control-group">
-                  <label class="control-label">密码</label>
+                  <label class="control-label">书名</label>
                   <div class="controls">
-                    <input type="password" name="newpassword" id="newpassword" />
+                    <input type="text" name="bookname" id="bookname" value="${book.bookname }"/>
                   </div>
                 </div>
                 <div class="control-group">
-                  <label class="control-label">再次输入</label>
+                  <label class="control-label">作者</label>
                   <div class="controls">
-                    <input type="password" name="retrypassword" id="pwd2" />
+                    <input type="text" name="bookauthor" id="bookauthor" value="${book.bookauthor }"/>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">出版社</label>
+                  <div class="controls">
+                    <input type="text" name="bookpress" id="bookpress"  value="${book.bookpress }"/>
+                  </div>
+                </div>
+                <div class="control-group">
+                   <label class="control-label">出版时间</label>
+                   <div class="controls">
+                        <input type="text" data-date="01-02-2013" data-date-format="yyyy-mm-dd" value="${book.bookpublichdate }" name="bookpublishdate">
+                        <span class="help-block">Date with Formate of  (yyyy-mm-dd)</span> 
+                    </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">位置</label>
+                  <div class="controls">
+                    <input type="text" name="bookaddress" id="bookaddress" value="${book.bookaddress }" />
+                  </div>
+                </div>
+                 <div class="control-group">
+                  <label class="control-label">书籍介绍</label>
+                  <div class="controls">
+                    <input type="text" name="bookintroduction" id="bookintroduction" value="${book.bookintroduction}"/>
+                  </div>
+                </div>
+                  <div class="control-group">
+                  <label class="control-label">书籍类别</label>
+                  <div class="controls">
+                    <select class="span11 " name="categoryname">
+                    <c:forEach items="${category}" var="item" varStatus="status">
+                        <c:if test="${item.categoryname == book.categoryname }">
+                        <option selected="selected">${item.categoryname }</option>
+                        </c:if>
+                         <c:if test="${item.categoryname != book.categoryname }">
+                        <option >${item.categoryname }</option>
+                        </c:if>
+                    </c:forEach>
+                </select>
                   </div>
                 </div>
                 <div class="form-actions">
@@ -104,4 +143,22 @@
     <script src="/BMS/static/js/jquery.validate.js"></script> 
     <script src="/BMS/static/js/alert.js"></script>
     <script src="/BMS/static/js/matrix.form_validation.js"></script>
+    <script type="text/javascript">
+        $(".editimg").click(function(){
+            $("#bookimg").click();
+        });
+        $("#bookimg").on("change",function(){
+            var $file = $(this);
+            var fileObj = $file[0];
+            var windowURL = window.URL || window.webkitURL;
+            var dataURL;
+            var $img = $("#preview");
+
+            if (fileObj && fileObj.files && fileObj.files[0]) {
+                dataURL = windowURL.createObjectURL(fileObj.files[0]);
+                $(".editimg").attr('src', dataURL);
+            } 
+        });
+        
+    </script>
 </html>

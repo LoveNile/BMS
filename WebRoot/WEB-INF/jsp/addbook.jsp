@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -42,9 +42,9 @@
     </style>
 </head>
 <body>
-        <c:if test="${not empty result}"> 
+    <c:if test="${not empty result}"> 
         <c:if test="${result }">
-        <div class="flashmessage" id="flh"><p>修改成功</p></div>
+        <div class="flashmessage" id="flh"><p>添加成功</p></div>
         </c:if>
         <c:if test="${!result }">
         <div class="flashmessage" id="flh"><p>${msg }</p></div>
@@ -54,72 +54,92 @@
                 $("#flh").fadeOut("slow");},1000);
         </script>
     </c:if>
- <div id="content">
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span6">
-      <div class="widget-box" style="left: 280px;">
-        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Personal-info</h5>
-        </div>
-        <div class="widget-content nopadding">
-          <form action="editadmin" method="post" class="form-horizontal" id="userinfoedit">
-            <div class="control-group">
-              <label class="control-label">姓名:</label>
-              <div class="controls">
-                <input type="text" class="span11" name ="adminname"value="${sessionScope.Admin.adminname }" />
-              </div>
+<div id="content">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="widget-box">
+            <div class="widget-content nopadding">
+              <form class="form-horizontal" method="post" action="addbook" id="addbook" novalidate="novalidate" enctype="multipart/form-data">
+                <div class="control-group">
+                  <label class="control-label">图书图片</label>
+                  <div class="controls">
+                    <input type="file" name="bookimg" id="bookimg" />
+                  </div>
+                </div>
+	            <div class="control-group">
+                  <label class="control-label">书名</label>
+                  <div class="controls">
+                    <input type="text" name="bookname" id="bookname" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">作者</label>
+                  <div class="controls">
+                    <input type="text" name="bookauthor" id="bookauthor" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">出版社</label>
+                  <div class="controls">
+                    <input type="text" name="bookpress" id="bookpress" />
+                  </div>
+                </div>
+                <div class="control-group">
+                   <label class="control-label">出版时间</label>
+                   <div class="controls">
+                        <input type="text" data-date="01-02-2013" data-date-format="yyyy-mm-dd" value="2013-1-1" name="bookpublishdate">
+                        <span class="help-block">Date with Formate of  (yyyy-mm-dd)</span> 
+                    </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">位置</label>
+                  <div class="controls">
+                    <input type="text" name="bookaddress" id="bookaddress" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">数量</label>
+                  <div class="controls">
+                    <input type="text" name="bookstock" id="bookstock" />
+                  </div>
+                </div>
+                 <div class="control-group">
+                  <label class="control-label">书籍介绍</label>
+                  <div class="controls">
+                    <input type="text" name="bookintroduction" id="bookintroduction" />
+                  </div>
+                </div>
+                  <div class="control-group">
+                  <label class="control-label">书籍介绍</label>
+                  <div class="controls">
+                    <select class="span11 " name="categoryname">
+                    <c:forEach items="${category}" var="item" varStatus="status">  
+                    <option>${item.categoryname }</option>
+                    </c:forEach>
+                </select>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <input type="submit" value="Save" class="btn btn-success">
+                </div>
+              </form>
             </div>
-            <div class="control-group">
-              <label class="control-label">邮箱 :</label>
-              <div class="controls">
-                <input type="email" class="span11 " name="adminemail" value="${sessionScope.Admin.adminemail }"  />
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">电话：</label>
-              <div class="controls">
-                <input type="text"  class="span11 " name="adminphone" value="${sessionScope.Admin.adminphone }"   />
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">身份证号 :</label>
-              <div class="controls">
-                <input type="text" class="span11" name="admincard" value="${sessionScope.Admin.admincard }" readonly="readonly" />
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">地址:</label>
-              <div class="controls">
-                <input type="text" class="span11 " name="adminaddress" value="${sessionScope.Admin.adminaddress }" />
-            </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">描述</label>
-              <div class="controls">
-                <textarea class="span11 " name="adminremaker">${sessionScope.Admin.adminremarks }</textarea>
-              </div>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-success">Save</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
 </body>
- <script src="/BMS/static/js/jquery.min.js"></script> 
-    <script src="/BMS/static/js/jquery.ui.custom.js"></script> 
-    <script src="/BMS/static/js/bootstrap.min.js"></script> 
+    <script src="/BMS/static/js/jquery.min.js"></script> 
+    <script src="/BMS/static/js/jquery.ui.custom.js"></script>
+    <script src="/BMS/static/js//bootstrap.min.js"></script>
     <script src="/BMS/static/js/jquery.uniform.js"></script> 
     <script src="/BMS/static/js/select2.min.js"></script> 
-    <script src="/BMS/static/js/jquery.dataTables.min.js"></script> 
     <script src="/BMS/static/js/matrix.js"></script> 
-    <script src="/BMS/static/js/matrix.tables.js"></script>
-    <script src="/BMS/static/js/alert.js"></script>
     <script src="/BMS/static/js/jquery.validate.js"></script> 
+    <script src="/BMS/static/js/alert.js"></script>
     <script src="/BMS/static/js/matrix.form_validation.js"></script>
 </html>

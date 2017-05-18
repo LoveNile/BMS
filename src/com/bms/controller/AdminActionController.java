@@ -1,11 +1,16 @@
 package com.bms.controller;
 
+import java.io.File;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bms.Constants;
@@ -109,31 +114,47 @@ public class AdminActionController extends BaseController {
     }
 
     @RequestMapping(value = "addbook")
-    @ResponseBody
-    public boolean addbook(@RequestParam(value="")String bookname,
-            @RequestParam(value="")String bookauthor,
-            @RequestParam(value="")String categoryname,
-            @RequestParam(value="")String bookpress,
-            @RequestParam(value="")String publishdate,
-            @RequestParam(value="")String bookintroduction,
-            @RequestParam(value="")String bookaddress,
-            @RequestParam(value="")String bookpicpath,
-            @RequestParam(value="")String booknumber) {
-        Book book = new Book();
-        book.setBookname(bookname);
-        book.setBookauthor(bookauthor);
-        book.setCategoryid(adminService.selectCategotyNameById(categoryname));
-        book.setBookaddress(bookaddress);
-        book.setPublisheddate(DateUtil.getSimpleDate(publishdate));
-        book.setBookintroduction(bookintroduction);
-        book.setBookaddress(bookaddress);
-        book.setBookpicpath(bookpicpath);
-        book.setDelmaker(false);
-        book.setBookentertime(DateUtil.getNowDate());
-        if (!adminService.toAddBook(book, Integer.parseInt(booknumber))) {
-            return false;
+    public ModelAndView addbook(@RequestParam(value="bookname")String bookname,
+            @RequestParam(value="bookauthor")String bookauthor,
+            @RequestParam(value="categoryname")String categoryname,
+            @RequestParam(value="bookpress")String bookpress,
+            @RequestParam(value="bookpublishdate")String publishdate,
+            @RequestParam(value="bookintroduction")String bookintroduction,
+            @RequestParam(value="bookaddress")String bookaddress,
+            @RequestParam(value = "bookimg")MultipartFile multipartFile,
+            @RequestParam(value="bookstock")String booknumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        Admin admininfo =  (Admin)this.getSession(Constants.BMS_ADMIN);
+        if (multipartFile != null) {
+            String filePath = "D:\\bookpic\\";
+            String originalFilename = multipartFile.getOriginalFilename();
+            String newpicname = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+            File newFile = new File(filePath+newpicname);
+            Book book = new Book();
+            book.setBookname(bookname);
+            book.setBookauthor(bookauthor);
+            book.setCategoryid(adminService.selectCategotyNameId(categoryname));
+            book.setBookaddress(bookaddress);
+            book.setPublisheddate(DateUtil.getSimpleDate(publishdate));
+            book.setBookintroduction(bookintroduction);
+            book.setBookaddress(bookaddress);
+            book.setDelmaker(false);
+            book.setBookentertime(DateUtil.getNowDate());
+            book.setBookpicpath(newpicname);
+            book.setBookpress(bookpress);
+            modelAndView.setViewName("addbook");
+            try {
+                adminService.toAddBook(book, Integer.parseInt(booknumber),admininfo.getAdminid());
+                multipartFile.transferTo(newFile);
+                modelAndView.addObject("result", true);
+            } catch (Exception e) {
+                modelAndView.addObject("result", false);
+                modelAndView.addObject("msg", e.getMessage());
+            }
+            modelAndView.setViewName("addbook");
+            modelAndView.addObject("category", adminService.getCategoryname());
         }
-        return true;
+        return modelAndView;
     }
 
     @RequestMapping(value = "updateadminpassword")
@@ -202,19 +223,128 @@ public class AdminActionController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/askallow")
+    @RequestMapping(value = "/askallow", method = RequestMethod.POST)
     @ResponseBody
-    public boolean adminAllowrBorrow() {
-
+    public boolean adminAllowrBorrow(@RequestParam(value="borrowid") String borrowid) {
+        try {
+            Admin admininfo =  (Admin)this.getSession(Constants.BMS_ADMIN);
+            adminService.adminAllowAsk(admininfo.getAdminid(), borrowid);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
-
 
     @RequestMapping(value = "/viewallborrow")
     public ModelAndView adminViewAllUserBorrow() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("allborrow");
         modelAndView.addObject("back", adminService.viewUserAllBoorrow());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/askback", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean adminAllowrBack(@RequestParam(value="borrowid") String borrowid) {
+        try {
+            Admin admininfo =  (Admin)this.getSession(Constants.BMS_ADMIN);
+            adminService.adminAllowBack(admininfo.getAdminid(), borrowid);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @RequestMapping(value = "/quickback", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean adminToUserQuickBack(@RequestParam(value="userid") String userid) {
+        try {
+            adminService.quickBack(userid);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @RequestMapping(value = "/categoryview")
+    public String adminviewCategory() {
+        return "addcategory";
+    }
+
+    @RequestMapping(value = "/addcategory", method = RequestMethod.POST)
+    public ModelAndView adminaddCategory(@RequestParam(value="categoryname") String categoryname) {
+        Admin admininfo =  (Admin)this.getSession(Constants.BMS_ADMIN);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("addcategory");
+        try {
+            adminService.addCategory(categoryname, admininfo.getAdminid());
+            modelAndView.addObject("result", true);
+        } catch (EditInfoException e) {
+            modelAndView.addObject("result", false);
+            modelAndView.addObject("msg", e.getMessage());
+        }
+        return modelAndView;
+    }
+    @RequestMapping(value = "/toaddbook")
+    public ModelAndView toAddBookPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("addbook");
+        modelAndView.addObject("category", adminService.getCategoryname());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{bookid}", method = RequestMethod.GET)
+    public ModelAndView toEditPage(@PathVariable String bookid) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("editbook");
+        modelAndView.addObject("book", adminService.getBookCustomById(bookid));
+        modelAndView.addObject("category", adminService.getCategoryname());
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/editbook", method = RequestMethod.POST)
+    public ModelAndView editBook(@RequestParam(value="bookid")String bookid,
+            @RequestParam(value="bookname")String bookname,
+            @RequestParam(value="bookauthor")String bookauthor,
+            @RequestParam(value="categoryname")String categoryname,
+            @RequestParam(value="bookpress")String bookpress,
+            @RequestParam(value="bookpublishdate")String publishdate,
+            @RequestParam(value="bookintroduction")String bookintroduction,
+            @RequestParam(value="bookaddress")String bookaddress,
+            @RequestParam(value = "bookimg")MultipartFile multipartFile) throws Exception {
+        Book book = new Book();
+        Admin admininfo =  (Admin)this.getSession(Constants.BMS_ADMIN);
+        ModelAndView modelAndView = new ModelAndView();
+        String filename = multipartFile.getOriginalFilename();
+        if (filename != null && !filename.equals("") ) {
+            String filePath = "D:\\bookpic\\";
+            String originalFilename = multipartFile.getOriginalFilename();
+            String newpicname = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+            File newFile = new File(filePath+newpicname);
+            multipartFile.transferTo(newFile);
+            book.setBookpicpath(newpicname);
+        }
+        book.setBookid(Long.parseLong(bookid));
+        book.setBookname(bookname);
+        book.setBookauthor(bookauthor);
+        book.setCategoryid(adminService.selectCategotyNameId(categoryname));
+        book.setBookaddress(bookaddress);
+        book.setPublisheddate(DateUtil.getSimpleDate(publishdate));
+        book.setBookintroduction(bookintroduction);
+        book.setBookaddress(bookaddress);
+        book.setDelmaker(false);
+        book.setBookentertime(DateUtil.getNowDate());
+        book.setBookpress(bookpress);
+        try {
+            adminService.updateBookInfo(book, admininfo.getAdminid());
+            modelAndView.setViewName("editbook");
+            modelAndView.addObject("result", true);
+        } catch (EditInfoException e) {
+            modelAndView.addObject("result", false);
+            modelAndView.addObject("msg", e.getMessage());
+        }
+        modelAndView.addObject("book", adminService.getBookCustomById(bookid));
+        modelAndView.addObject("category", adminService.getCategoryname());
         return modelAndView;
     }
 }

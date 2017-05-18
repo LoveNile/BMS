@@ -50,7 +50,7 @@
                     <td>${item.bookpress}</td>  
                     <td>${item.bookaddress}</td> 
                     <td><button id="${item.bookid}" class="btn btn-info bookinfo" data-toggle="modal" data-target=".book-info">查看</button>
-                        <button  id="${item.bookid}" class="btn btn-warning ">编辑</button>
+                        <button  id="${item.bookid}" class="btn btn-warning edit">编辑</button>
                         <a id="${item.bookid}" class="btn btn-danger delbook">删除</a>
                     </td>  
                   </tr>  
@@ -117,6 +117,9 @@
                 location.href = "http://localhost:8080/BMS/adminaction/allbook"
             }
         });
+    });
+    $(".edit").click(function(){
+        location.href = "http://localhost:8080/BMS/adminaction/"+$(this).attr("id");
     });
     function formatedate(todate) {
         date = new Date(todate);

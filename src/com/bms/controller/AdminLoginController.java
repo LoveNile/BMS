@@ -42,4 +42,9 @@ public class AdminLoginController extends BaseController {
         }
         return adminMap;
     }
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String adminLogout(){
+        this.removeSession(Constants.BMS_ADMIN);
+        return "admin";
+    }
 }

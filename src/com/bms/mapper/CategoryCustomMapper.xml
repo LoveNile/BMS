@@ -4,4 +4,7 @@
     <select id="getAllCategory" resultType="com.bms.vo.CategoryCustom">
         SELECT CategoryId,CategoryName,CategoryCreateTime FROM category 
     </select>
+    <select id="countCategoryname" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(1) from category WHERE CategoryName = #{id}
+    </select>
 </mapper>

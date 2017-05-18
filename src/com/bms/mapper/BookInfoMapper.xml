@@ -68,14 +68,16 @@
              book.BookEnterTime,
              book.BookIntroduction,
              book.BookAddress,
-             category.CategoryName
+             category.CategoryName,
+             book.BookPicPath,
+             book.BookId
          FROM book
          LEFT JOIN category
          ON book.CategoryId = category.CategoryId
          WHERE book.BookId = #{id}
      </select>
-     <insert id="insertBook" parameterType="com.bms.po.Book">
-        <selectKey keyProperty="bookid" order="AFTER" resultType="java.lang.Integer">
+     <insert id="insertBook" parameterType="com.bms.po.Book" >
+        <selectKey keyProperty="bookid" order="AFTER" resultType="java.lang.Long">
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO `bms`.`book` (

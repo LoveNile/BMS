@@ -21,6 +21,11 @@
             padding-left: 4px;
         }
     </style>
+    <script type="text/javascript">
+    if (window != top){
+        top.location.href = location.href;
+    }
+    </script>
 </head>
 <body onkeydown="keydown()">
     <div id="loginbox">  
@@ -28,7 +33,7 @@
             <h2 style="color:#B2DFEE;font-size:28px;">图书管理系统平台</h2>
             <span style="font-size:14px;color:gray;">版权所有 &copy; 河南工业大学 2017-2018</span>
         </div>           
-        <form id="loginform" class="form-vertical" action="http://themedesigner.in/demo/matrix-admin/index.html">
+        <form id="loginform" class="form-vertical" action="">
             <div class="control-group">
                 <label class="control-label">登陆账号</label>
                 <div class="controls">

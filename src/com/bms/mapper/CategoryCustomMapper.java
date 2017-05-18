@@ -6,4 +6,5 @@ import com.bms.vo.CategoryCustom;
 
 public interface CategoryCustomMapper {
     List<CategoryCustom> getAllCategory();
+    int countCategoryname(String name);
 }

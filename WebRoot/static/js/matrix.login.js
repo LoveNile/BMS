@@ -35,8 +35,7 @@ function checkLogin(){
             if (data.adminresult) {
                 window.location.href="http://localhost:8080/BMS/adminaction/management";
             }else{
-                alert(data.adminmsg)
-                showDialog("登陆信息","<span style='color:red;'>抱歉，你的账号非园长或管理员，不能登录！</span>");
+                alert(data.adminmsg);
             }
         },    
         error : function() {}    

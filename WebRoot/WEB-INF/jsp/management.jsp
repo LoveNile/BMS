@@ -53,7 +53,7 @@
                 </ul>
             </li>
             <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">&nbsp;设置</span></a></li>
-            <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">&nbsp;退出系统</span></a></li>
+            <li class=""><a title="" href="/BMS/admin/logout"><i class="icon icon-share-alt"></i> <span class="text">&nbsp;退出系统</span></a></li>
         </ul>
     </div>
     <!--close-top-Header-menu-->
@@ -69,7 +69,7 @@
     <div id="sidebar" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden;">
         <ul>
             <li class="submenu active">
-                <a class="menu_a" link="index2.html"><i class="icon icon-home"></i> <span>主页</span></a> 
+                <a class="menu_a" link="alluser"><i class="icon icon-home"></i> <span>主页</span></a> 
             </li>
             <li class="submenu"> 
                 <a href="#">
@@ -92,15 +92,15 @@
                 </a>
                 <ul>
                     <li><a class="menu_a" link="allbook"><i class="icon icon-caret-right"></i> 全部图书</a></li>
-                    <li><a class="menu_a" link="grid.html"><i class="icon icon-caret-right"></i>添加图书</a></li>
-                    <li><a class="menu_a" link="grid.html"><i class="icon icon-caret-right"></i>添加分类</a></li>
+                    <li><a class="menu_a" link="toaddbook"><i class="icon icon-caret-right"></i>添加图书</a></li>
+                    <li><a class="menu_a" link="categoryview"><i class="icon icon-caret-right"></i>添加分类</a></li>
                 </ul>
             </li>
             <li class="submenu">
                 <a href="#">
                     <i class="icon icon-th"></i> 
                     <span>图书请求</span> 
-                    <span class="label label-important">2</span>
+                    <span class="label label-important">3</span>
                 </a>
                 <ul>
                     <li><a class="menu_a" link="viewbookaskborrow"><i class="icon icon-caret-right"></i>借阅请求</a></li>

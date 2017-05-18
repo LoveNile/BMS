@@ -5,6 +5,12 @@ import com.bms.po.Book;
 public class BookCustom extends Book {
     private Integer booknumber;
     private String categoryname;
+    private String bookpublichdate;
+
+
+    public String getBookpublichdate() {
+        return getPublisheddate().toLocaleString();
+    }
 
     public String getCategoryname() {
         return categoryname;

@@ -44,7 +44,7 @@ public class BMSAdminFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         if (session.getAttribute(Constants.BMS_ADMIN) == null) {
-            res.sendRedirect(req.getContextPath() + "/user/login");
+            res.sendRedirect(req.getContextPath() + "/admin/login");
         } else {
             chain.doFilter(req, res);
         }
